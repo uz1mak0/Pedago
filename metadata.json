@@ -1,0 +1,8 @@
+{
+  "name": "Pedago",
+  "description": "Master authentic Tagalog language through 50 interactive grammar lessons, 50 real-life Philippine conversation scenarios, native audio pronunciation, and smart flashcards.",
+  "version": "1.0.0",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
