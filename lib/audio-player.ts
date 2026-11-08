@@ -1,6 +1,11 @@
-// Authentic Filipino Native Voice & Audio Pronunciation Engine for Tagalog
-// Uses high-quality authentic native speaker audio recordings (/public/audio/vocab/),
-// dynamic Filipino TTS proxy (/api/tts), and Web Audio acoustic syllable guide.
+// Tagalog Audio Pronunciation Engine
+// Order of playback:
+//   1. Pre-recorded native speaker audio (/public/audio/vocab/) - bundled inside the app
+//   2. Device text-to-speech (Capacitor native TTS in the Android app, Web Speech in the browser)
+// Also includes a Web Audio syllable beat guide.
+// No server (/api/tts) is needed, so this works with Next.js static export + Capacitor.
+
+import { Capacitor } from '@capacitor/core';
 
 export interface AudioPlayOptions {
   speed?: 'normal' | 'slow';
@@ -58,7 +63,7 @@ class TagalogAudioEngine {
   }
 
   /**
-   * Play pre-rendered authentic native Filipino speaker audio for a specific flashcard.
+   * Play pre-rendered native Filipino speaker audio for a specific flashcard.
    */
   public playFlashcardAudio(
     cardId: string,
@@ -71,7 +76,8 @@ class TagalogAudioEngine {
   }
 
   /**
-   * Plays authentic native audio by URL with playback rate control.
+   * Plays audio by URL with playback rate control.
+   * Resolves true if it played to the end, false if it failed.
    */
   public playAudioUrl(url: string, options: AudioPlayOptions = {}): Promise<boolean> {
     return new Promise((resolve) => {
@@ -104,16 +110,14 @@ class TagalogAudioEngine {
 
       audio.onerror = () => {
         this.isSpeaking = false;
-        options.onEnd?.();
         resolve(false);
       };
 
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch((err) => {
-          console.warn('Native audio play error, falling back:', err);
+          console.warn('Audio play error, falling back:', err);
           this.isSpeaking = false;
-          options.onEnd?.();
           resolve(false);
         });
       }
@@ -121,38 +125,63 @@ class TagalogAudioEngine {
   }
 
   /**
-   * General speech method: Checks pre-rendered native audio first,
-   * then dynamic native TTS API (/api/tts), with Web Speech as last-resort fallback.
+   * General speech method.
+   * 1. Pre-rendered native recording (if the word is in VOCAB_MAP)
+   * 2. Device text-to-speech
    */
   public async speak(text: string, options: AudioPlayOptions = {}): Promise<boolean> {
     if (!text || typeof window === 'undefined') return false;
 
     const normalized = text.trim().toLowerCase().replace(/[.,!?:;'"“”]/g, '');
 
-    // 1. Check if this is one of our pre-rendered native flashcards
+    // 1. Pre-rendered native recording
     const vocabId = VOCAB_MAP[normalized];
     if (vocabId) {
       const ok = await this.playFlashcardAudio(vocabId, 'word', options);
       if (ok) return true;
     }
 
-    // 2. Play via dynamic authentic Tagalog TTS API endpoint
-    try {
-      const dynamicUrl = `/api/tts?text=${encodeURIComponent(text.trim())}`;
-      const ok = await this.playAudioUrl(dynamicUrl, options);
-      if (ok) return true;
-    } catch {
-      // Continue to fallback
+    // 2. Device voice (native Android TTS in the app, Web Speech in the browser)
+    return this.speakDevice(text.trim(), options);
+  }
+
+  /**
+   * Uses Capacitor native TTS inside the Android app,
+   * and the browser's Web Speech API on the web.
+   */
+  private async speakDevice(text: string, options: AudioPlayOptions = {}): Promise<boolean> {
+    if (Capacitor.isNativePlatform()) {
+      try {
+        this.stop();
+        this.isSpeaking = true;
+        options.onStart?.();
+
+        const { TextToSpeech } = await import('@capacitor-community/text-to-speech');
+        await TextToSpeech.speak({
+          text,
+          lang: 'fil-PH',
+          rate: options.speed === 'slow' ? 0.7 : 0.95,
+          pitch: 1.0,
+          volume: 1.0,
+        });
+
+        this.isSpeaking = false;
+        options.onEnd?.();
+        return true;
+      } catch (err) {
+        console.warn('Native TTS error:', err);
+        this.isSpeaking = false;
+        options.onError?.(err instanceof Error ? err : new Error(String(err)));
+        return false;
+      }
     }
 
-    // 3. Last-resort fallback: Web Speech API with Tagalog voice prioritization
     return this.speakWebSpeech(text, options);
   }
 
   private speakWebSpeech(text: string, options: AudioPlayOptions = {}): Promise<boolean> {
     return new Promise((resolve) => {
       if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-        options.onEnd?.();
         resolve(false);
         return;
       }
@@ -164,30 +193,48 @@ class TagalogAudioEngine {
       utterance.pitch = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
-      const tagalogVoice = voices.find(
-        (v) =>
-          v.lang.toLowerCase().includes('fil') ||
-          v.lang.toLowerCase().includes('tl') ||
-          v.name.toLowerCase().includes('tagalog') ||
-          v.name.toLowerCase().includes('filipino')
-      );
+      const tagalogVoice = voices.find((v) => {
+        const lang = v.lang.toLowerCase().replace('_', '-');
+        const name = v.name.toLowerCase();
+        return (
+          lang.startsWith('fil') ||
+          lang.startsWith('tl') ||
+          name.includes('tagalog') ||
+          name.includes('filipino')
+        );
+      });
 
-      if (tagalogVoice) {
-        utterance.voice = tagalogVoice;
-        utterance.lang = tagalogVoice.lang;
-        window.speechSynthesis.speak(utterance);
-      } else {
-        // Critical: Do NOT speak with an English voice that distorts Tagalog vowels and glottal stops!
-        console.warn('No native Tagalog TTS voice installed in browser; avoided robotic English fallback.');
+      if (!tagalogVoice) {
+        // Do NOT speak with an English voice: it distorts Tagalog vowels and glottal stops.
+        console.warn('No Tagalog voice available in this browser; skipping speech.');
+        this.isSpeaking = false;
+        resolve(false);
+        return;
+      }
+
+      utterance.voice = tagalogVoice;
+      utterance.lang = tagalogVoice.lang;
+
+      utterance.onstart = () => {
+        this.isSpeaking = true;
+        options.onStart?.();
+      };
+      utterance.onend = () => {
         this.isSpeaking = false;
         options.onEnd?.();
+        resolve(true);
+      };
+      utterance.onerror = () => {
+        this.isSpeaking = false;
         resolve(false);
-      }
+      };
+
+      window.speechSynthesis.speak(utterance);
     });
   }
 
   /**
-   * Plays rhythmic acoustic syllable guide using Web Audio API oscillator.
+   * Plays a rhythmic syllable guide using Web Audio API oscillators.
    */
   public playPhoneticBeats(
     syllables: string[],
@@ -231,6 +278,11 @@ class TagalogAudioEngine {
       this.currentAudioElement.pause();
       this.currentAudioElement.currentTime = 0;
       this.currentAudioElement = null;
+    }
+    if (Capacitor.isNativePlatform()) {
+      import('@capacitor-community/text-to-speech')
+        .then(({ TextToSpeech }) => TextToSpeech.stop())
+        .catch(() => { });
     }
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
