@@ -79,7 +79,7 @@ export function ScenariosView({
   const handlePlayAudio = async (text: string, id: string) => {
     setPlayingAudioId(id);
     await playTagalogSpeech(text);
-    setPlayingAudioId(null);
+    setPlayingAudioId((current) => (current === id ? null : current));
   };
 
   const handleReset = () => {

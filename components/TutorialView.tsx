@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Volume2, ArrowRight, Sparkles, BookOpen, MessageSquare, Layers, ShieldCheck, Heart, Compass } from 'lucide-react';
 import { playTagalogSpeech } from '../lib/audio-voice';
+import { tutorialPhrases } from '../lib/tutorial-phrases';
 
 interface TutorialViewProps {
   onStartLearning: (tab: 'flashcards' | 'grammar' | 'scenarios') => void;
@@ -11,16 +12,12 @@ interface TutorialViewProps {
 export function TutorialView({ onStartLearning }: TutorialViewProps) {
   const [playingWord, setPlayingWord] = useState<string | null>(null);
 
-  const testPhrases = [
-    { tagalog: 'Mabuhay!', english: 'Welcome / Long life!', note: 'Celebratory national greeting' },
-    { tagalog: 'Salamat po.', english: 'Thank you (polite).', note: 'Everyday respect marker' },
-    { tagalog: 'Kumusta ka?', english: 'How are you?', note: 'Friendly daily icebreaker' }
-  ];
+  const testPhrases = tutorialPhrases;
 
   const handlePlay = async (phrase: string) => {
     setPlayingWord(phrase);
     await playTagalogSpeech(phrase);
-    setPlayingWord(null);
+    setPlayingWord((current) => (current === phrase ? null : current));
   };
 
   return (

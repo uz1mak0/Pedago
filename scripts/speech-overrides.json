@@ -1,0 +1,9 @@
+{
+  "_help": "Fixes for recordings that sound wrong. After editing, run: npm run audio:generate (only changed phrases are re-recorded).",
+  "phrases": {
+    "_example (delete me)": "exact text to record instead of the on-screen phrase"
+  },
+  "words": {
+    "_example (delete me)": "respelling used wherever this whole word appears"
+  }
+}

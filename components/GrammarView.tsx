@@ -52,7 +52,7 @@ export function GrammarView({
   const handlePlayAudio = async (text: string, id: string) => {
     setPlayingAudioId(id);
     await playTagalogSpeech(text);
-    setPlayingAudioId(null);
+    setPlayingAudioId((current) => (current === id ? null : current));
   };
 
   const handleAnswerQuiz = (questionId: string, optionIndex: number, correctIndex: number) => {

@@ -1,21 +1,35 @@
-// Tagalog Audio Pronunciation Engine
-// Order of playback:
-//   1. Pre-recorded native speaker audio (/public/audio/vocab/) - bundled inside the app
-//   2. Device text-to-speech (Capacitor native TTS in the Android app, Web Speech in the browser)
-// Also includes a Web Audio syllable beat guide.
-// No server (/api/tts) is needed, so this works with Next.js static export + Capacitor.
+// Tagalog audio engine. Playback order for every phrase in the app:
+//
+//   1. Recorded clip  - one consistent studio-quality voice, generated ahead of
+//                       time for EVERY phrase (see scripts/generate-audio.ts) and
+//                       bundled in /public/audio/tts. Works offline, identical on
+//                       every device.
+//   2. Legacy clip    - the old single-word recordings in /public/audio/vocab.
+//                       Only used for words with no tier-1 clip (i.e. before the
+//                       generator has been run). Safe to delete afterwards.
+//   3. Device voice   - Capacitor native TTS (Android app) / Web Speech (browser).
+//                       Only used if the device really has a Filipino voice.
+//                       It NEVER falls back to an English voice, because that
+//                       mispronounces Tagalog vowels and stress.
+//
+// No server (/api/tts) is needed: this works with Next.js static export + Capacitor.
 
 import { Capacitor } from '@capacitor/core';
+import { clipUrl, loadClipManifest } from './audio-manifest';
+import { cleanSpeechText, normalizeTagalogForSpeech, prepareForSynthesis, speechKey } from './speech-key';
 
 export interface AudioPlayOptions {
   speed?: 'normal' | 'slow';
+  /** Fires when sound actually starts (not when loading begins). */
   onStart?: () => void;
+  /** Fires when playback finishes normally. */
   onEnd?: () => void;
+  /** Fires when no tier could speak the phrase. */
   onError?: (err: Error) => void;
 }
 
-// Known mapping of flashcard terms to pre-rendered authentic native recordings
-const VOCAB_MAP: Record<string, string> = {
+// Old single-word recordings (Google Translate voice). Keyed by lowercase word.
+const LEGACY_WORD_CLIPS: Record<string, string> = {
   salamat: 'vocab-1',
   'magandang umaga': 'vocab-2',
   kumusta: 'vocab-3',
@@ -43,11 +57,33 @@ const VOCAB_MAP: Record<string, string> = {
   bakit: 'vocab-25',
 };
 
+type PlayResult = 'ended' | 'failed' | 'interrupted';
+
+const SLOW_RATE = 0.85; // only used when no natively-slow recording exists
+const START_TIMEOUT_MS = 6000; // a clip that has not started by then is treated as failed
+const MAX_CACHED_CLIPS = 30;
+const VOICE_WAIT_MS = 1500;
+
+const isFilipinoLang = (lang: string) => /^(fil|tl)([-_]|$)/i.test(lang);
+
+interface NativeVoice {
+  lang: string;
+  index?: number;
+}
+
 class TagalogAudioEngine {
   private audioCtx: AudioContext | null = null;
-  private currentAudioElement: HTMLAudioElement | null = null;
-  private isSpeaking = false;
+  private current: HTMLAudioElement | null = null;
   private audioCache = new Map<string, HTMLAudioElement>();
+  private speaking = false;
+  private deviceVoiceActive = false; // native TTS / Web Speech currently in use
+
+  // Every speak() call owns a session number. stop() bumps it, which invalidates
+  // anything still in flight and resolves the pending promise as 'interrupted'.
+  private session = 0;
+  private settle: ((result: PlayResult) => void) | null = null;
+
+  private nativeVoice: NativeVoice | null | undefined; // undefined = not probed yet
 
   private getAudioContext(): AudioContext {
     if (!this.audioCtx && typeof window !== 'undefined') {
@@ -62,180 +98,69 @@ class TagalogAudioEngine {
     return this.audioCtx!;
   }
 
-  /**
-   * Play pre-rendered native Filipino speaker audio for a specific flashcard.
-   */
-  public playFlashcardAudio(
-    cardId: string,
-    type: 'word' | 'example',
-    options: AudioPlayOptions = {}
-  ): Promise<boolean> {
-    const filename = type === 'example' ? `${cardId}-example.mp3` : `${cardId}.mp3`;
-    const audioUrl = `/audio/vocab/${filename}`;
-    return this.playAudioUrl(audioUrl, options);
-  }
+  // ---------------------------------------------------------------------------
+  // Public API
+  // ---------------------------------------------------------------------------
 
   /**
-   * Plays audio by URL with playback rate control.
-   * Resolves true if it played to the end, false if it failed.
-   */
-  public playAudioUrl(url: string, options: AudioPlayOptions = {}): Promise<boolean> {
-    return new Promise((resolve) => {
-      if (typeof window === 'undefined') {
-        resolve(false);
-        return;
-      }
-
-      this.stop();
-
-      let audio = this.audioCache.get(url);
-      if (!audio) {
-        audio = new Audio(url);
-        this.audioCache.set(url, audio);
-      } else {
-        audio.currentTime = 0;
-      }
-
-      this.currentAudioElement = audio;
-      this.isSpeaking = true;
-      audio.playbackRate = options.speed === 'slow' ? 0.75 : 1.0;
-
-      options.onStart?.();
-
-      audio.onended = () => {
-        this.isSpeaking = false;
-        options.onEnd?.();
-        resolve(true);
-      };
-
-      audio.onerror = () => {
-        this.isSpeaking = false;
-        resolve(false);
-      };
-
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn('Audio play error, falling back:', err);
-          this.isSpeaking = false;
-          resolve(false);
-        });
-      }
-    });
-  }
-
-  /**
-   * General speech method.
-   * 1. Pre-rendered native recording (if the word is in VOCAB_MAP)
-   * 2. Device text-to-speech
+   * Speak a Tagalog phrase. Resolves true only if it was played to the end;
+   * false if it failed OR was interrupted by stop()/another speak().
    */
   public async speak(text: string, options: AudioPlayOptions = {}): Promise<boolean> {
     if (!text || typeof window === 'undefined') return false;
 
-    const normalized = text.trim().toLowerCase().replace(/[.,!?:;'"“”]/g, '');
+    const session = this.begin();
+    const clean = cleanSpeechText(text);
+    const slow = options.speed === 'slow';
 
-    // 1. Pre-rendered native recording
-    const vocabId = VOCAB_MAP[normalized];
-    if (vocabId) {
-      const ok = await this.playFlashcardAudio(vocabId, 'word', options);
-      if (ok) return true;
+    // Tier 1: recorded clip (same voice everywhere)
+    const manifest = await loadClipManifest();
+    if (this.session !== session) return false;
+
+    const slowId = slow ? manifest.get(speechKey(clean, 'slow')) : undefined;
+    const normalId = manifest.get(speechKey(clean));
+    const fileId = slowId ?? normalId;
+
+    if (fileId) {
+      // Prefer the natively-slow recording; slowing a normal one is a fallback.
+      const rate = slow && !slowId ? SLOW_RATE : 1;
+      const result = await this.playUrl(session, clipUrl(fileId), rate, options);
+      if (result === 'ended') return this.finishOk(options);
+      if (result === 'interrupted') return false;
+    } else if (process.env.NODE_ENV !== 'production' && manifest.size > 0) {
+      console.warn(`[audio] No recorded clip for "${clean}". Re-run: npm run audio:generate`);
     }
 
-    // 2. Device voice (native Android TTS in the app, Web Speech in the browser)
-    return this.speakDevice(text.trim(), options);
-  }
-
-  /**
-   * Uses Capacitor native TTS inside the Android app,
-   * and the browser's Web Speech API on the web.
-   */
-  private async speakDevice(text: string, options: AudioPlayOptions = {}): Promise<boolean> {
-    if (Capacitor.isNativePlatform()) {
-      try {
-        this.stop();
-        this.isSpeaking = true;
-        options.onStart?.();
-
-        const { TextToSpeech } = await import('@capacitor-community/text-to-speech');
-        await TextToSpeech.speak({
-          text,
-          lang: 'fil-PH',
-          rate: options.speed === 'slow' ? 0.7 : 0.95,
-          pitch: 1.0,
-          volume: 1.0,
-        });
-
-        this.isSpeaking = false;
-        options.onEnd?.();
-        return true;
-      } catch (err) {
-        console.warn('Native TTS error:', err);
-        this.isSpeaking = false;
-        options.onError?.(err instanceof Error ? err : new Error(String(err)));
-        return false;
-      }
+    // Tier 2: legacy single-word recording
+    const legacyId = LEGACY_WORD_CLIPS[clean.toLowerCase().replace(/[.,!?:;'"]/g, '')];
+    if (legacyId) {
+      const rate = slow ? SLOW_RATE : 1;
+      const result = await this.playUrl(session, `/audio/vocab/${legacyId}.mp3`, rate, options);
+      if (result === 'ended') return this.finishOk(options);
+      if (result === 'interrupted') return false;
     }
 
-    return this.speakWebSpeech(text, options);
+    // Tier 3: device voice, only if it is genuinely Filipino
+    const spoken = prepareForSynthesis(clean);
+    const result = Capacitor.isNativePlatform()
+      ? await this.speakNative(session, spoken, slow, options)
+      : await this.speakWebSpeech(session, spoken, slow, options);
+    if (result === 'ended') return this.finishOk(options);
+    if (result === 'failed') {
+      options.onError?.(new Error('No Filipino voice is available on this device.'));
+    }
+    return false;
   }
 
-  private speakWebSpeech(text: string, options: AudioPlayOptions = {}): Promise<boolean> {
-    return new Promise((resolve) => {
-      if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-        resolve(false);
-        return;
-      }
-
-      window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = options.speed === 'slow' ? 0.75 : 0.95;
-      utterance.pitch = 1.0;
-
-      const voices = window.speechSynthesis.getVoices();
-      const tagalogVoice = voices.find((v) => {
-        const lang = v.lang.toLowerCase().replace('_', '-');
-        const name = v.name.toLowerCase();
-        return (
-          lang.startsWith('fil') ||
-          lang.startsWith('tl') ||
-          name.includes('tagalog') ||
-          name.includes('filipino')
-        );
-      });
-
-      if (!tagalogVoice) {
-        // Do NOT speak with an English voice: it distorts Tagalog vowels and glottal stops.
-        console.warn('No Tagalog voice available in this browser; skipping speech.');
-        this.isSpeaking = false;
-        resolve(false);
-        return;
-      }
-
-      utterance.voice = tagalogVoice;
-      utterance.lang = tagalogVoice.lang;
-
-      utterance.onstart = () => {
-        this.isSpeaking = true;
-        options.onStart?.();
-      };
-      utterance.onend = () => {
-        this.isSpeaking = false;
-        options.onEnd?.();
-        resolve(true);
-      };
-      utterance.onerror = () => {
-        this.isSpeaking = false;
-        resolve(false);
-      };
-
-      window.speechSynthesis.speak(utterance);
-    });
+  /** Plays one audio file. Resolves true if it played to the end. */
+  public async playAudioUrl(url: string, options: AudioPlayOptions = {}): Promise<boolean> {
+    if (typeof window === 'undefined') return false;
+    const session = this.begin();
+    const result = await this.playUrl(session, url, options.speed === 'slow' ? SLOW_RATE : 1, options);
+    return result === 'ended' ? this.finishOk(options) : false;
   }
 
-  /**
-   * Plays a rhythmic syllable guide using Web Audio API oscillators.
-   */
+  /** Rhythmic syllable guide using Web Audio oscillators. */
   public playPhoneticBeats(
     syllables: string[],
     stressedIndex: number,
@@ -273,26 +198,305 @@ class TagalogAudioEngine {
     }
   }
 
+  /** Stops whatever is playing. Any awaiting speak() resolves false immediately. */
   public stop(): void {
-    if (this.currentAudioElement) {
-      this.currentAudioElement.pause();
-      this.currentAudioElement.currentTime = 0;
-      this.currentAudioElement = null;
+    this.session++;
+
+    const settle = this.settle;
+    this.settle = null;
+
+    if (this.current) {
+      try {
+        this.current.pause();
+        this.current.currentTime = 0;
+      } catch {
+        // element may be in an error state
+      }
+      this.current = null;
     }
-    if (Capacitor.isNativePlatform()) {
-      import('@capacitor-community/text-to-speech')
-        .then(({ TextToSpeech }) => TextToSpeech.stop())
-        .catch(() => { });
+    if (this.deviceVoiceActive) {
+      this.deviceVoiceActive = false;
+      if (Capacitor.isNativePlatform()) {
+        import('@capacitor-community/text-to-speech')
+          .then(({ TextToSpeech }) => TextToSpeech.stop())
+          .catch(() => {});
+      } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
     }
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
-    this.isSpeaking = false;
+    this.speaking = false;
+
+    // Unblock the caller that was awaiting the audio we just cut off.
+    settle?.('interrupted');
   }
 
   public getSpeakingState(): boolean {
-    return this.isSpeaking;
+    return this.speaking;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Internals
+  // ---------------------------------------------------------------------------
+
+  /** Cancels anything playing and returns the id that identifies this request. */
+  private begin(): number {
+    this.stop();
+    return this.session;
+  }
+
+  private finishOk(options: AudioPlayOptions): true {
+    options.onEnd?.();
+    return true;
+  }
+
+  private getAudio(url: string): HTMLAudioElement {
+    let audio = this.audioCache.get(url);
+    if (audio) {
+      this.audioCache.delete(url); // re-insert so the newest use is last
+      this.audioCache.set(url, audio);
+      try {
+        audio.currentTime = 0;
+      } catch {
+        // not loaded yet
+      }
+      return audio;
+    }
+
+    audio = new Audio(url);
+    audio.preload = 'auto';
+    // Slowing a clip must not change its pitch (old Safari needs the prefixed flag).
+    audio.preservesPitch = true;
+    (audio as HTMLAudioElement & { webkitPreservesPitch?: boolean }).webkitPreservesPitch = true;
+    this.audioCache.set(url, audio);
+
+    if (this.audioCache.size > MAX_CACHED_CLIPS) {
+      for (const [key, el] of this.audioCache) {
+        if (el !== this.current && el !== audio) {
+          this.audioCache.delete(key);
+          break;
+        }
+      }
+    }
+    return audio;
+  }
+
+  private playUrl(
+    session: number,
+    url: string,
+    rate: number,
+    options: AudioPlayOptions
+  ): Promise<PlayResult> {
+    return new Promise<PlayResult>((resolve) => {
+      if (this.session !== session) {
+        resolve('interrupted');
+        return;
+      }
+
+      const audio = this.getAudio(url);
+      let done = false;
+      let started = false;
+      let timer: ReturnType<typeof setTimeout> | undefined;
+
+      const finish = (result: PlayResult, evict = false) => {
+        if (done) return;
+        done = true;
+        if (timer) clearTimeout(timer);
+        audio.onplaying = audio.onended = audio.onerror = null;
+        if (result !== 'ended') {
+          try {
+            audio.pause();
+          } catch {
+            // ignore
+          }
+        }
+        // A clip that errored stays broken forever if it is cached.
+        if (evict) this.audioCache.delete(url);
+        if (this.session === session) {
+          this.settle = null;
+          this.current = null;
+          this.speaking = false;
+        }
+        resolve(result);
+      };
+
+      this.settle = (r) => finish(r);
+      this.current = audio;
+      this.speaking = true;
+
+      audio.playbackRate = rate;
+      audio.onplaying = () => {
+        if (started) return;
+        started = true;
+        if (timer) clearTimeout(timer);
+        options.onStart?.();
+      };
+      audio.onended = () => finish('ended');
+      audio.onerror = () => finish('failed', true);
+
+      timer = setTimeout(() => finish('failed', true), START_TIMEOUT_MS);
+
+      audio.play().catch((err) => {
+        console.warn('Audio play error:', err);
+        finish('failed', true);
+      });
+    });
+  }
+
+  // --- Device voice: Capacitor native TTS (Android app) ----------------------
+
+  private async resolveNativeVoice(): Promise<NativeVoice | null> {
+    if (this.nativeVoice !== undefined) return this.nativeVoice;
+
+    try {
+      const { TextToSpeech } = await import('@capacitor-community/text-to-speech');
+
+      const { voices } = await TextToSpeech.getSupportedVoices();
+      const index = voices.findIndex((v) => isFilipinoLang(v.lang));
+      if (index >= 0) {
+        this.nativeVoice = { lang: voices[index].lang, index };
+        return this.nativeVoice;
+      }
+
+      for (const lang of ['fil-PH', 'tl-PH']) {
+        const { supported } = await TextToSpeech.isLanguageSupported({ lang });
+        if (supported) {
+          this.nativeVoice = { lang };
+          return this.nativeVoice;
+        }
+      }
+
+      this.nativeVoice = null; // definitive: this phone has no Filipino voice
+      return null;
+    } catch (err) {
+      console.warn('Could not query native TTS voices:', err);
+      return null; // not cached, so a later tap retries
+    }
+  }
+
+  private speakNative(
+    session: number,
+    text: string,
+    slow: boolean,
+    options: AudioPlayOptions
+  ): Promise<PlayResult> {
+    return new Promise<PlayResult>((resolve) => {
+      let done = false;
+      const finish = (result: PlayResult) => {
+        if (done) return;
+        done = true;
+        if (this.session === session) {
+          this.settle = null;
+          this.speaking = false;
+        }
+        resolve(result);
+      };
+      this.settle = finish;
+
+      (async () => {
+        const voice = await this.resolveNativeVoice();
+        if (this.session !== session) return finish('interrupted');
+        if (!voice) {
+          console.warn('No Filipino text-to-speech voice installed; not speaking with a wrong-language voice.');
+          return finish('failed');
+        }
+
+        const { TextToSpeech, QueueStrategy } = await import('@capacitor-community/text-to-speech');
+        this.speaking = true;
+        this.deviceVoiceActive = true;
+        options.onStart?.();
+
+        await TextToSpeech.speak({
+          text,
+          lang: voice.lang,
+          voice: voice.index,
+          rate: slow ? 0.7 : 0.95,
+          pitch: 1.0,
+          volume: 1.0,
+          queueStrategy: QueueStrategy.Flush,
+        });
+
+        finish(this.session === session ? 'ended' : 'interrupted');
+      })().catch((err) => {
+        console.warn('Native TTS error:', err);
+        finish(this.session === session ? 'failed' : 'interrupted');
+      });
+    });
+  }
+
+  // --- Device voice: Web Speech API (browser) --------------------------------
+
+  /** getVoices() is empty on first call in Chrome/Safari until "voiceschanged" fires. */
+  private findWebVoice(): Promise<SpeechSynthesisVoice | null> {
+    const synth = window.speechSynthesis;
+    const pick = () =>
+      synth
+        .getVoices()
+        .find((v) => isFilipinoLang(v.lang) || /tagalog|filipino/i.test(v.name)) ?? null;
+
+    const now = pick();
+    if (now) return Promise.resolve(now);
+    if (synth.getVoices().length > 0) return Promise.resolve(null); // list loaded, none Filipino
+
+    return new Promise((resolve) => {
+      let timer: ReturnType<typeof setTimeout>;
+      const done = () => {
+        synth.removeEventListener('voiceschanged', done);
+        clearTimeout(timer);
+        resolve(pick());
+      };
+      timer = setTimeout(done, VOICE_WAIT_MS);
+      synth.addEventListener('voiceschanged', done, { once: true });
+    });
+  }
+
+  private async speakWebSpeech(
+    session: number,
+    text: string,
+    slow: boolean,
+    options: AudioPlayOptions
+  ): Promise<PlayResult> {
+    if (!('speechSynthesis' in window)) return 'failed';
+
+    const voice = await this.findWebVoice();
+    if (this.session !== session) return 'interrupted';
+    if (!voice) {
+      console.warn('No Filipino voice in this browser; not speaking with a wrong-language voice.');
+      return 'failed';
+    }
+
+    return new Promise<PlayResult>((resolve) => {
+      let done = false;
+      const finish = (result: PlayResult) => {
+        if (done) return;
+        done = true;
+        if (this.session === session) {
+          this.settle = null;
+          this.speaking = false;
+        }
+        resolve(result);
+      };
+      this.settle = finish;
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+      utterance.rate = slow ? 0.75 : 0.95;
+      utterance.pitch = 1.0;
+
+      utterance.onstart = () => {
+        this.speaking = true;
+        options.onStart?.();
+      };
+      utterance.onend = () => finish(this.session === session ? 'ended' : 'interrupted');
+      utterance.onerror = () => finish(this.session === session ? 'failed' : 'interrupted');
+
+      this.deviceVoiceActive = true;
+      window.speechSynthesis.speak(utterance);
+    });
   }
 }
 
 export const audioEngine = new TagalogAudioEngine();
+
+// Re-exported so existing imports keep working.
+export { normalizeTagalogForSpeech };
