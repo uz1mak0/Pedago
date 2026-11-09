@@ -3,27 +3,33 @@
  *   public/audio/tts/<fileId>.mp3
  *   public/audio/manifest.json   (phrase key -> file id; read by lib/audio-manifest.ts)
  *
- * Uses Google Cloud Text-to-Speech with a Gemini TTS model, language fil-PH.
+ * Two providers (TTS_PROVIDER):
+ *   edge   (default, FREE, no account) Microsoft Edge neural Filipino voices via the
+ *          `edge-tts` command:  pip install edge-tts
+ *          Voices: fil-PH-BlessicaNeural (female, default) / fil-PH-AngeloNeural (male).
+ *   google Google Cloud Text-to-Speech (Gemini TTS, fil-PH). Needs a billing-enabled project.
  *
  *   npm run audio:generate              record whatever is missing or changed
  *   npm run audio:generate -- --force   re-record everything
  *   npm run audio:generate -- --dry-run list what would be recorded (no network)
  *   npm run audio:check                 exit 1 if any phrase has no up-to-date clip (no network)
  *
- * Auth (any one):
- *   GOOGLE_ACCESS_TOKEN=...   or just be logged in with the gcloud CLI
- *   (Google Cloud Shell already is). Project: GOOGLE_CLOUD_PROJECT or gcloud's default.
+ * google provider auth (any one):
+ *   GOOGLE_ACCESS_TOKEN=...   or be logged in with the gcloud CLI (Cloud Shell already is).
+ *   Project: GOOGLE_CLOUD_PROJECT or gcloud's default.
  *
- * Optional env: TTS_VOICE (default Kore), TTS_MODEL (default gemini-2.5-flash-tts),
- *               TTS_LANGUAGE (default fil-PH), TTS_ENDPOINT, TTS_CONCURRENCY.
+ * Optional env: TTS_PROVIDER, TTS_VOICE, TTS_MODEL (google), TTS_LANGUAGE,
+ *               TTS_ENDPOINT (google), TTS_CONCURRENCY.
  *
  * Re-running is safe and cheap: file ids are a hash of (voice + model + prompt +
  * text), so unchanged phrases are skipped and changed ones get a new file.
  */
 
-import { execSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { execFile, execFileSync, execSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { promisify } from 'node:util';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, readdirSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import { collectSpeechItems, SpeechItem } from '../lib/speech-texts';
 import { hashString, prepareForSynthesis } from '../lib/speech-key';
 
@@ -32,8 +38,14 @@ const DRY_RUN = args.has('--dry-run');
 const CHECK = args.has('--check');
 const FORCE = args.has('--force');
 
-const VOICE = process.env.TTS_VOICE ?? 'Kore';
-const MODEL = process.env.TTS_MODEL ?? 'gemini-2.5-flash-tts';
+const PROVIDER = (process.env.TTS_PROVIDER ?? 'edge') as 'edge' | 'google';
+if (PROVIDER !== 'edge' && PROVIDER !== 'google') {
+  console.error(`Unknown TTS_PROVIDER "${PROVIDER}" (use "edge" or "google").`);
+  process.exit(2);
+}
+const VOICE = process.env.TTS_VOICE ?? (PROVIDER === 'edge' ? 'fil-PH-BlessicaNeural' : 'Kore');
+const MODEL = process.env.TTS_MODEL ?? (PROVIDER === 'edge' ? 'edge-neural' : 'gemini-2.5-flash-tts');
+const EDGE_RATE = { normal: '+0%', slow: '-30%' } as const;
 const LANGUAGE = process.env.TTS_LANGUAGE ?? 'fil-PH';
 const ENDPOINT = process.env.TTS_ENDPOINT ?? 'https://texttospeech.googleapis.com/v1/text:synthesize';
 const CONCURRENCY = Number(process.env.TTS_CONCURRENCY ?? 3);
@@ -106,7 +118,8 @@ interface PlanEntry {
 function buildPlan(): PlanEntry[] {
   return collectSpeechItems().map((item) => {
     const synth = synthesisText(item);
-    const signature = [MODEL, VOICE, LANGUAGE, PROMPTS[item.variant], synth].join('|');
+    const style = PROVIDER === 'edge' ? EDGE_RATE[item.variant] : PROMPTS[item.variant];
+    const signature = [PROVIDER, MODEL, VOICE, LANGUAGE, style, synth].join('|');
     const fileId = hashString(signature);
     return { item, synth, fileId, file: resolve(CLIP_DIR, `${fileId}.mp3`) };
   });
@@ -146,7 +159,70 @@ function looksLikeMp3(buf: Buffer): boolean {
   return id3 || frame;
 }
 
+const run = promisify(execFile);
+
+// `pip install edge-tts` puts the command in a folder that is often not on PATH
+// (typical on Windows), so also try it through Python directly.
+const EDGE_CANDIDATES: string[][] = [
+  ['edge-tts'],
+  ['python', '-m', 'edge_tts'],
+  ['py', '-m', 'edge_tts'],
+  ['python3', '-m', 'edge_tts'],
+];
+let edgeCommand: string[] | null = null;
+
+function findEdgeCommand(): string[] {
+  if (edgeCommand) return edgeCommand;
+  for (const candidate of EDGE_CANDIDATES) {
+    try {
+      execFileSync(candidate[0], [...candidate.slice(1), '--version'], { stdio: 'ignore', timeout: 20_000 });
+      edgeCommand = candidate;
+      return candidate;
+    } catch {
+      // try the next one
+    }
+  }
+  throw new Error(
+    'HTTP 400: edge-tts is not installed. Install Python, then run: python -m pip install -U edge-tts'
+  );
+}
+
+/** Free Microsoft Edge neural voice through the `edge-tts` command. */
+async function synthesizeEdge(entry: PlanEntry): Promise<Buffer> {
+  const dir = mkdtempSync(join(tmpdir(), 'pedago-tts-'));
+  const textFile = join(dir, 'in.txt');
+  const outFile = join(dir, 'out.mp3');
+  writeFileSync(textFile, entry.synth, 'utf8');
+
+  let lastError = '';
+  try {
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      try {
+        const [bin, ...prefix] = findEdgeCommand();
+        await run(
+          bin,
+          [...prefix, '--file', textFile, '--voice', VOICE, `--rate=${EDGE_RATE[entry.item.variant]}`, '--write-media', outFile],
+          { timeout: 60_000 }
+        );
+        const audio = readFileSync(outFile);
+        if (audio.length >= 1500 && looksLikeMp3(audio)) return audio;
+        lastError = `edge-tts produced an invalid MP3 (${audio.length} bytes)`;
+      } catch (err) {
+        const e = err as NodeJS.ErrnoException & { stderr?: string };
+        if (e.message.startsWith('HTTP 400')) throw e;
+        lastError = (e.stderr || e.message || String(err)).toString().trim().slice(-300);
+      }
+      await sleep(1000 * attempt);
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+  throw new Error(`gave up after retries: ${lastError}`);
+}
+
 async function synthesize(entry: PlanEntry, auth: { token: string; project?: string }): Promise<Buffer> {
+  if (PROVIDER === 'edge') return synthesizeEdge(entry);
+
   const body = {
     input: { text: entry.synth, prompt: PROMPTS[entry.item.variant] },
     voice: { languageCode: LANGUAGE, name: VOICE, modelName: MODEL },
@@ -200,7 +276,7 @@ function writeManifest(plan: PlanEntry[]) {
   const tmp = `${MANIFEST_PATH}.tmp`;
   writeFileSync(
     tmp,
-    JSON.stringify({ version: 1, voice: { model: MODEL, name: VOICE, language: LANGUAGE }, clips }, null, 2) + '\n'
+    JSON.stringify({ version: 1, voice: { provider: PROVIDER, model: MODEL, name: VOICE, language: LANGUAGE }, clips }, null, 2) + '\n'
   );
   renameSync(tmp, MANIFEST_PATH);
 }
@@ -231,7 +307,7 @@ async function main() {
   });
   const slow = plan.filter((e) => e.item.variant === 'slow').length;
   console.log(
-    `${plan.length} phrases (${plan.length - slow} normal + ${slow} slow) | voice ${VOICE} | model ${MODEL} | ${LANGUAGE}`
+    `${plan.length} phrases (${plan.length - slow} normal + ${slow} slow) | ${PROVIDER} voice ${VOICE} | ${LANGUAGE}`
   );
   console.log(`${seenFiles.size} distinct recordings: ${seenFiles.size - todo.length} already done, ${todo.length} to record.`);
 
@@ -253,7 +329,7 @@ async function main() {
   }
 
   if (todo.length) {
-    const auth = getAuth();
+    const auth = PROVIDER === 'google' ? getAuth() : { token: '' };
     const failures: { text: string; error: string }[] = [];
     let done = 0;
     let next = 0;
