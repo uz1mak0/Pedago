@@ -10,13 +10,15 @@ interface GrammarViewProps {
   completedTopicIds: string[];
   onToggleCompleteTopic: (id: string) => void;
   onAddXp: (amount: number) => void;
+  onBackToHome?: () => void;
 }
 
 export function GrammarView({
   exercises,
   completedTopicIds,
   onToggleCompleteTopic,
-  onAddXp
+  onAddXp,
+  onBackToHome
 }: GrammarViewProps) {
   const [selectedTopicId, setSelectedTopicId] = useState<string>(exercises[0]?.id || 'grammar-1');
   const [searchQuery, setSearchQuery] = useState('');
@@ -74,9 +76,20 @@ export function GrammarView({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
+            {onBackToHome && (
+              <button
+                type="button"
+                onClick={onBackToHome}
+                className="mr-1 inline-flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 p-1.5 text-xs font-semibold text-slate-300 transition-all hover:bg-white/10 hover:text-white"
+                aria-label="Back to home"
+                title="Back to home"
+              >
+                <ChevronRight className="h-4 w-4 rotate-180" />
+              </button>
+            )}
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Grammar & Syntax Mastery</h1>
             <span className="rounded-full bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 text-xs font-semibold text-indigo-400">
-              50 Topics
+              {exercises.length} Topics
             </span>
           </div>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -86,7 +99,7 @@ export function GrammarView({
 
         <div className="text-xs font-medium text-emerald-400 rounded-xl bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 self-start sm:self-auto flex items-center gap-1.5">
           <CheckCircle className="h-4 w-4" />
-          <span>{completedTopicIds.length} of 50 Topics Completed</span>
+          <span>{completedTopicIds.length} of {exercises.length} Topics Completed</span>
         </div>
       </div>
 
@@ -98,7 +111,7 @@ export function GrammarView({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search 50 grammar topics, affixes, or rules (e.g. -um-, enclitics, focus, po)..."
+            placeholder={`Search ${exercises.length} grammar topics, affixes, or rules (e.g. -um-, enclitics, focus, po)...`}
             className="w-full rounded-2xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder-slate-400 backdrop-blur-xl focus:border-sky-400/50 focus:outline-none focus:ring-1 focus:ring-sky-400/50"
           />
         </div>
@@ -120,15 +133,15 @@ export function GrammarView({
         </div>
       </div>
 
-      {/* Main Layout: 50 Topics List (Left) & Topic Details (Right) */}
+      {/* Main Layout: Topics List (Left) & Topic Details (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Topic Selector (Scrollable 50 items) */}
+        {/* Left Topic Selector */}
         <div className="lg:col-span-4 rounded-3xl border border-white/10 bg-white/[0.03] p-3 backdrop-blur-xl max-h-[640px] flex flex-col">
           <div className="flex items-center justify-between px-3 py-2 border-b border-white/10 mb-2">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
               Select Lesson ({filteredExercises.length})
             </span>
-            <span className="text-[11px] text-sky-400 font-mono">01 - 50</span>
+            <span className="text-[11px] text-sky-400 font-mono">01 - {String(exercises.length).padStart(2, '0')}</span>
           </div>
 
           <div className="overflow-y-auto space-y-1.5 pr-1 flex-1">

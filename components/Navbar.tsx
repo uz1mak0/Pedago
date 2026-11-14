@@ -15,8 +15,8 @@ interface NavbarProps {
 const tabs = [
   { id: 'tutorial' as const, label: 'Tutorial', icon: Compass, badge: 'Start Here' },
   { id: 'flashcards' as const, label: 'Flashcards', icon: Layers, badge: '25 Cards' },
-  { id: 'grammar' as const, label: 'Grammar', icon: BookOpen, badge: '50 Topics' },
-  { id: 'scenarios' as const, label: 'Scenarios', icon: MessageSquare, badge: '50 Scenarios' },
+  { id: 'grammar' as const, label: 'Grammar', icon: BookOpen, badge: '100 Topics' },
+  { id: 'scenarios' as const, label: 'Scenarios', icon: MessageSquare, badge: '100 Scenarios' },
 ];
 
 // Top bar only. On phones/tablets the tabs are shown by BottomNav.tsx.
@@ -61,16 +61,16 @@ export function Navbar({ activeTab, setActiveTab, xp, streak }: NavbarProps) {
                 onClick={() => setActiveTab(tab.id)}
                 aria-current={isActive ? 'page' : undefined}
                 className={`relative flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200 ${isActive
-                    ? 'border border-sky-400/30 bg-gradient-to-r from-sky-500/20 to-indigo-500/20 text-white shadow-md shadow-sky-500/10'
-                    : 'text-slate-300 hover:bg-white/[0.06] hover:text-white'
+                  ? 'border border-sky-400/30 bg-gradient-to-r from-sky-500/20 to-indigo-500/20 text-white shadow-md shadow-sky-500/10'
+                  : 'text-slate-300 hover:bg-white/[0.06] hover:text-white'
                   }`}
               >
                 <Icon className={`h-4 w-4 ${isActive ? 'text-sky-400' : 'text-slate-400'}`} />
                 <span>{tab.label}</span>
                 <span
                   className={`hidden rounded-full border px-1.5 py-0.5 text-[10px] font-medium xl:inline-block ${isActive
-                      ? 'border-sky-400/30 bg-sky-400/20 text-sky-300'
-                      : 'border-white/10 bg-white/5 text-slate-400'
+                    ? 'border-sky-400/30 bg-sky-400/20 text-sky-300'
+                    : 'border-white/10 bg-white/5 text-slate-400'
                     }`}
                 >
                   {tab.badge}
@@ -79,18 +79,6 @@ export function Navbar({ activeTab, setActiveTab, xp, streak }: NavbarProps) {
             );
           })}
         </nav>
-
-        {/* Streak + XP */}
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-1.5 rounded-xl border border-amber-500/20 bg-amber-500/10 px-2.5 py-1.5 text-xs font-semibold text-amber-300 shadow-sm">
-            <Flame className="h-4 w-4 animate-pulse fill-amber-400 text-amber-400" />
-            <span>{streak}d</span>
-          </div>
-          <div className="flex items-center gap-1.5 rounded-xl border border-sky-500/20 bg-sky-500/10 px-2.5 py-1.5 text-xs font-semibold text-sky-300 shadow-sm">
-            <Sparkles className="h-4 w-4 text-sky-400" />
-            <span>{xp} XP</span>
-          </div>
-        </div>
       </div>
     </header>
   );

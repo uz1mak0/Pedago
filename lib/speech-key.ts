@@ -71,7 +71,21 @@ export function normalizeTagalogForSpeech(text: string): string {
 const SCENARIO_TOPIC_TAIL = /^(.*?\bsa inyo)\s+ukol sa\s+.+?([?!.])$/i;
 
 export function prepareForSynthesis(text: string): string {
-  const cleaned = cleanSpeechText(text);
-  const withoutTopic = cleaned.replace(SCENARIO_TOPIC_TAIL, '$1$2');
-  return normalizeTagalogForSpeech(withoutTopic);
+  const cleaned = cleanSpeechText(text)
+    .replace(SCENARIO_TOPIC_TAIL, '$1$2')
+    // Strip parenthetical English glosses/notes in grammar examples, e.g. "(a coffee)", "(Completed)"
+    .replace(/\s*\([^)]*\)/g, '')
+    // Turn root -> inflected arrows and "vs." into natural sentence pauses
+    .replace(/\s*->\s*/g, '. ')
+    .replace(/\s+vs\.\s+/gi, ' ')
+    // Turn em-dashes into a natural clause break
+    .replace(/\s*—\s*/g, ' ')
+    // Expand "#2" (e.g. "Mongol #2 pencil") so TTS says "number 2"
+    .replace(/#(\d+)/g, 'number $1')
+    // Clean up any double punctuation left after stripping parentheticals
+    .replace(/\.\s+\./g, '.')
+    .replace(/\s+([,.;?!])/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return normalizeTagalogForSpeech(cleaned);
 }

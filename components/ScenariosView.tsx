@@ -9,14 +9,28 @@ interface ScenariosViewProps {
   scenarios: Scenario[];
   completedScenarioIds: string[];
   onCompleteScenario: (id: string, xp: number) => void;
+  selectedScenarioId?: string | null;
+  onSelectScenarioId?: (id: string | null) => void;
+  onBackToHome?: () => void;
 }
 
 export function ScenariosView({
   scenarios,
   completedScenarioIds,
-  onCompleteScenario
+  onCompleteScenario,
+  selectedScenarioId: externalSelectedScenarioId,
+  onSelectScenarioId: externalOnSelectScenarioId,
+  onBackToHome
 }: ScenariosViewProps) {
-  const [selectedScenarioId, setSelectedScenarioId] = useState<string | null>(null);
+  const [internalSelectedScenarioId, setInternalSelectedScenarioId] = useState<string | null>(null);
+  const selectedScenarioId = externalSelectedScenarioId !== undefined ? externalSelectedScenarioId : internalSelectedScenarioId;
+  const setSelectedScenarioId = (id: string | null) => {
+    if (externalOnSelectScenarioId) {
+      externalOnSelectScenarioId(id);
+    } else {
+      setInternalSelectedScenarioId(id);
+    }
+  };
   const [currentNodeId, setCurrentNodeId] = useState<string>('node-1');
   const [dialogueHistory, setDialogueHistory] = useState<DialogueNode[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -94,9 +108,20 @@ export function ScenariosView({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
+            {onBackToHome && !activeScenario && (
+              <button
+                type="button"
+                onClick={onBackToHome}
+                className="mr-1 inline-flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 p-1.5 text-xs font-semibold text-slate-300 transition-all hover:bg-white/10 hover:text-white"
+                aria-label="Back to home"
+                title="Back to home"
+              >
+                <ChevronRight className="h-4 w-4 rotate-180" />
+              </button>
+            )}
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Daily Conversational Scenarios</h1>
             <span className="rounded-full bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 text-xs font-semibold text-amber-400">
-              50 Scenarios
+              {scenarios.length} Scenarios
             </span>
           </div>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -106,7 +131,7 @@ export function ScenariosView({
 
         <div className="text-xs font-medium text-amber-300 rounded-xl bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 self-start sm:self-auto flex items-center gap-1.5">
           <CheckCircle2 className="h-4 w-4 text-amber-400" />
-          <span>{completedScenarioIds.length} of 50 Scenarios Mastered</span>
+          <span>{completedScenarioIds.length} of {scenarios.length} Scenarios Mastered</span>
         </div>
       </div>
 
@@ -141,7 +166,7 @@ export function ScenariosView({
                 onClick={() => setSelectedScenarioId(null)}
                 className="rounded-xl bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-white/20"
               >
-                Back to All 50
+                Back to All {scenarios.length}
               </button>
             </div>
           </div>
@@ -187,19 +212,17 @@ export function ScenariosView({
                       <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                         {node.speakerName}
                       </span>
-                      {isNpc && (
-                        <button
-                          onClick={() => handlePlayAudio(node.tagalog, `node-${index}`)}
-                          className={`flex h-7 w-7 items-center justify-center rounded-lg transition-all ${
-                            playingAudioId === `node-${index}`
-                              ? 'bg-amber-400 text-slate-950'
-                              : 'bg-white/10 text-slate-300 hover:bg-sky-500 hover:text-white'
-                          }`}
-                          title="Listen pronunciation"
-                        >
-                          <Volume2 className="h-3.5 w-3.5" />
-                        </button>
-                      )}
+                      <button
+                        onClick={() => handlePlayAudio(node.tagalog, `node-${index}`)}
+                        className={`flex h-7 w-7 items-center justify-center rounded-lg transition-all ${
+                          playingAudioId === `node-${index}`
+                            ? 'bg-amber-400 text-slate-950'
+                            : 'bg-white/10 text-slate-300 hover:bg-sky-500 hover:text-white'
+                        }`}
+                        title="Listen pronunciation"
+                      >
+                        <Volume2 className="h-3.5 w-3.5" />
+                      </button>
                     </div>
 
                     <div className="text-sm sm:text-base font-bold">{node.tagalog}</div>
@@ -281,7 +304,7 @@ export function ScenariosView({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search 50 Philippine scenarios (e.g. Jeepney, Taho, Palengke, Fiesta, Tricycle, Jollibee)..."
+                placeholder={`Search ${scenarios.length} Philippine scenarios (e.g. Jeepney, Taho, Palengke, Fiesta, Tricycle, Jollibee)...`}
                 className="w-full rounded-2xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder-slate-400 backdrop-blur-xl focus:border-amber-400/50 focus:outline-none focus:ring-1 focus:ring-amber-400/50"
               />
             </div>

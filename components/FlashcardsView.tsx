@@ -10,9 +10,10 @@ interface FlashcardsViewProps {
   masteredIds: string[];
   onToggleMastered: (id: string) => void;
   onAddXp: (amount: number) => void;
+  onBackToHome?: () => void;
 }
 
-export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }: FlashcardsViewProps) {
+export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp, onBackToHome }: FlashcardsViewProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [playingTarget, setPlayingTarget] = useState<'word' | 'example' | null>(null);
@@ -74,6 +75,17 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
+            {onBackToHome && (
+              <button
+                type="button"
+                onClick={onBackToHome}
+                className="mr-1 inline-flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 p-1.5 text-xs font-semibold text-slate-300 transition-all hover:bg-white/10 hover:text-white"
+                aria-label="Back to home"
+                title="Back to home"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+            )}
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Vocabulary Flashcards</h1>
             <span className="rounded-full bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400">
               {filteredCards.length} Cards
@@ -96,21 +108,19 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
           <div className="flex items-center rounded-2xl bg-white/[0.04] p-1 border border-white/10">
             <button
               onClick={() => setSpeed('normal')}
-              className={`rounded-xl px-2.5 py-1 text-xs font-semibold transition-all ${
-                speed === 'normal'
-                  ? 'bg-amber-400 text-slate-950 font-bold shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
+              className={`rounded-xl px-2.5 py-1 text-xs font-semibold transition-all ${speed === 'normal'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-sm'
+                : 'text-slate-400 hover:text-white'
+                }`}
             >
               1.0x
             </button>
             <button
               onClick={() => setSpeed('slow')}
-              className={`rounded-xl px-2.5 py-1 text-xs font-semibold transition-all ${
-                speed === 'slow'
-                  ? 'bg-amber-400 text-slate-950 font-bold shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
+              className={`rounded-xl px-2.5 py-1 text-xs font-semibold transition-all ${speed === 'slow'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-sm'
+                : 'text-slate-400 hover:text-white'
+                }`}
             >
               0.75x Slow
             </button>
@@ -126,11 +136,10 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
                   setCurrentIndex(0);
                   setIsFlipped(false);
                 }}
-                className={`rounded-xl px-2.5 py-1 text-xs font-semibold transition-all ${
-                  filterDifficulty === diff
-                    ? 'bg-sky-500/20 text-sky-300 border border-sky-400/30'
-                    : 'text-slate-400 hover:text-white'
-                }`}
+                className={`rounded-xl px-2.5 py-1 text-xs font-semibold transition-all ${filterDifficulty === diff
+                  ? 'bg-sky-500/20 text-sky-300 border border-sky-400/30'
+                  : 'text-slate-400 hover:text-white'
+                  }`}
               >
                 {diff}
               </button>
@@ -144,10 +153,10 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
         <span>
           Card {currentIndex + 1} of {filteredCards.length}
         </span>
-        <span className="flex items-center gap-1 text-emerald-400 font-medium">
+        {/* <span className="flex items-center gap-1 text-emerald-400 font-medium">
           <BookmarkCheck className="h-3.5 w-3.5" />
           {masteredIds.length} Mastered
-        </span>
+        </span> */}
       </div>
 
       {/* 3D Glassmorphic Flip Card */}
@@ -168,11 +177,10 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
 
               <button
                 onClick={handlePlayWord}
-                className={`flex h-11 w-11 items-center justify-center rounded-2xl border transition-all ${
-                  playingTarget === 'word'
-                    ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-lg shadow-amber-400/30 scale-105 animate-pulse'
-                    : 'bg-white/10 text-white border-white/20 hover:bg-sky-500 hover:border-sky-400 shadow-md'
-                }`}
+                className={`flex h-11 w-11 items-center justify-center rounded-2xl border transition-all ${playingTarget === 'word'
+                  ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-lg shadow-amber-400/30 scale-105 animate-pulse'
+                  : 'bg-white/10 text-white border-white/20 hover:bg-sky-500 hover:border-sky-400 shadow-md'
+                  }`}
                 title="Listen to authentic female Filipino pronunciation"
               >
                 <Volume2 className="h-5 w-5" />
@@ -214,11 +222,10 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
               </div>
               <button
                 onClick={handlePlayWord}
-                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
-                  playingTarget === 'word'
-                    ? 'bg-amber-400 text-slate-950 border-amber-300'
-                    : 'bg-white/10 text-white border-white/20 hover:bg-sky-500'
-                }`}
+                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${playingTarget === 'word'
+                  ? 'bg-amber-400 text-slate-950 border-amber-300'
+                  : 'bg-white/10 text-white border-white/20 hover:bg-sky-500'
+                  }`}
                 title="Listen to word"
               >
                 <Volume2 className="h-4 w-4" />
@@ -237,11 +244,10 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
                   <div className="text-xs font-semibold text-sky-300">Example Usage:</div>
                   <button
                     onClick={handlePlayExample}
-                    className={`flex items-center gap-1 rounded-lg px-2 py-0.5 text-[11px] font-semibold border transition-all ${
-                      playingTarget === 'example'
-                        ? 'bg-amber-400 text-slate-950 border-amber-300'
-                        : 'bg-white/10 text-slate-300 border-white/10 hover:bg-sky-500 hover:text-white'
-                    }`}
+                    className={`flex items-center gap-1 rounded-lg px-2 py-0.5 text-[11px] font-semibold border transition-all ${playingTarget === 'example'
+                      ? 'bg-amber-400 text-slate-950 border-amber-300'
+                      : 'bg-white/10 text-slate-300 border-white/10 hover:bg-sky-500 hover:text-white'
+                      }`}
                     title="Listen to authentic female sentence"
                   >
                     <Volume2 className="h-3 w-3" />
@@ -274,11 +280,10 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp }
             <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs">
               <button
                 onClick={handleMarkMastered}
-                className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 font-semibold transition-all ${
-                  isCurrentMastered
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                    : 'bg-white/10 text-slate-300 hover:bg-emerald-500 hover:text-white border border-white/10'
-                }`}
+                className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 font-semibold transition-all ${isCurrentMastered
+                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                  : 'bg-white/10 text-slate-300 hover:bg-emerald-500 hover:text-white border border-white/10'
+                  }`}
               >
                 <CheckCircle2 className="h-4 w-4" />
                 <span>{isCurrentMastered ? 'Mastered (+15 XP)' : 'Mark as Mastered'}</span>

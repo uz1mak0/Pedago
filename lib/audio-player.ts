@@ -114,12 +114,22 @@ class TagalogAudioEngine {
     const slow = options.speed === 'slow';
 
     // Tier 1: recorded clip (same voice everywhere)
-    const manifest = await loadClipManifest();
+    let manifest = await loadClipManifest();
     if (this.session !== session) return false;
 
-    const slowId = slow ? manifest.get(speechKey(clean, 'slow')) : undefined;
-    const normalId = manifest.get(speechKey(clean));
-    const fileId = slowId ?? normalId;
+    let slowId = slow ? manifest.get(speechKey(clean, 'slow')) : undefined;
+    let normalId = manifest.get(speechKey(clean));
+    let fileId = slowId ?? normalId;
+
+    // If a phrase misses in the cached manifest, refresh manifest.json once in case
+    // new clips were generated while the app was already open.
+    if (!fileId) {
+      manifest = await loadClipManifest(true);
+      if (this.session !== session) return false;
+      slowId = slow ? manifest.get(speechKey(clean, 'slow')) : undefined;
+      normalId = manifest.get(speechKey(clean));
+      fileId = slowId ?? normalId;
+    }
 
     if (fileId) {
       // Prefer the natively-slow recording; slowing a normal one is a fallback.

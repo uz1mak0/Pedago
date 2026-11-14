@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { App as CapApp } from '@capacitor/app';
 import { Navbar } from '../components/Navbar';
+import { BottomNav } from '../components/BottomNav';
 import { TutorialView } from '../components/TutorialView';
 import { FlashcardsView } from '../components/FlashcardsView';
 import { GrammarView } from '../components/GrammarView';
@@ -12,12 +14,49 @@ import pedagoData from '../lib/pedago_100_schema_matched.json';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'tutorial' | 'flashcards' | 'grammar' | 'scenarios'>('tutorial');
+  const [activeScenarioId, setActiveScenarioId] = useState<string | null>(null);
   const [xp, setXp] = useState<number>(0);
   const [streak, setStreak] = useState<number>(1);
   const [masteredCards, setMasteredCards] = useState<string[]>([]);
   const [completedTopics, setCompletedTopics] = useState<string[]>([]);
   const [completedScenarios, setCompletedScenarios] = useState<string[]>([]);
   const [isClient, setIsClient] = useState(false);
+
+  // Keep latest navigation state in refs for backButton listener
+  const activeTabRef = useRef(activeTab);
+  activeTabRef.current = activeTab;
+  const activeScenarioIdRef = useRef(activeScenarioId);
+  activeScenarioIdRef.current = activeScenarioId;
+
+  // Handle Android hardware back button
+  useEffect(() => {
+    let removeListener: (() => void) | undefined;
+
+    CapApp.addListener('backButton', () => {
+      // 1. If currently inside an open scenario conversation, go back to the scenarios list
+      if (activeTabRef.current === 'scenarios' && activeScenarioIdRef.current) {
+        setActiveScenarioId(null);
+        return;
+      }
+
+      // 2. If on any tab other than tutorial (e.g. Flashcards, Grammar, Scenarios), navigate back to Tutorial (Home)
+      if (activeTabRef.current !== 'tutorial') {
+        setActiveTab('tutorial');
+        return;
+      }
+
+      // 3. If already on the root / home screen (Tutorial), exit the app cleanly
+      CapApp.exitApp();
+    }).then((handle) => {
+      removeListener = () => handle.remove();
+    }).catch(() => {
+      // Not running in Capacitor / web browser environment
+    });
+
+    return () => {
+      removeListener?.();
+    };
+  }, []);
 
   // Hydration-safe loading of stored learning state
   useEffect(() => {
@@ -111,6 +150,7 @@ export default function Home() {
             masteredIds={masteredCards}
             onToggleMastered={handleToggleMasteredCard}
             onAddXp={handleAddXp}
+            onBackToHome={() => setActiveTab('tutorial')}
           />
         )}
 
@@ -120,6 +160,7 @@ export default function Home() {
             completedTopicIds={completedTopics}
             onToggleCompleteTopic={handleToggleCompleteTopic}
             onAddXp={handleAddXp}
+            onBackToHome={() => setActiveTab('tutorial')}
           />
         )}
 
@@ -128,9 +169,15 @@ export default function Home() {
             scenarios={pedagoData.scenarios as Scenario[]}
             completedScenarioIds={completedScenarios}
             onCompleteScenario={handleCompleteScenario}
+            selectedScenarioId={activeScenarioId}
+            onSelectScenarioId={setActiveScenarioId}
+            onBackToHome={() => setActiveTab('tutorial')}
           />
         )}
       </main>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Glossy Minimalist Footer */}
       <footer className="border-t border-white/10 bg-slate-950/80 backdrop-blur-xl py-6 text-center text-xs text-slate-500">
@@ -139,7 +186,7 @@ export default function Home() {
             <strong>Pedago</strong> &bull; Authentic Tagalog Language Learning
           </p>
           <p className="text-slate-400">
-            Crafted with Filipino care for global learners &bull; 50 Grammar Lessons &bull; 50 Scenarios
+            Crafted with Filipino care for global learners &bull; 100 Grammar Lessons &bull; 100 Scenarios
           </p>
         </div>
       </footer>

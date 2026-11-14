@@ -3,16 +3,16 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Pedago - Learn Authentic Tagalog Language',
-  description: 'Master authentic Tagalog language through 50 interactive grammar lessons, 50 real-life Philippine conversation scenarios, native audio pronunciation, and smart flashcards.',
+  description: 'Master authentic Tagalog language through 100 interactive grammar lessons, 100 real-life Philippine conversation scenarios, native audio pronunciation, and smart flashcards.',
   openGraph: {
     title: 'Pedago - Learn Authentic Tagalog Language',
-    description: 'Master authentic Tagalog language through 50 interactive grammar lessons, 50 real-life Philippine conversation scenarios, native audio pronunciation, and smart flashcards.',
+    description: 'Master authentic Tagalog language through 100 interactive grammar lessons, 100 real-life Philippine conversation scenarios, native audio pronunciation, and smart flashcards.',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Pedago - Learn Authentic Tagalog Language',
-    description: 'Master authentic Tagalog language through 50 interactive grammar lessons, 50 real-life Philippine conversation scenarios, native audio pronunciation, and smart flashcards.',
+    description: 'Master authentic Tagalog language through 100 interactive grammar lessons, 100 real-life Philippine conversation scenarios, native audio pronunciation, and smart flashcards.',
   }
 };
 

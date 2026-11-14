@@ -11,8 +11,12 @@ const EMPTY: ClipManifest = { size: 0, get: () => undefined };
 
 let cached: Promise<ClipManifest> | null = null;
 
-export function loadClipManifest(): Promise<ClipManifest> {
+export function loadClipManifest(forceReload = false): Promise<ClipManifest> {
   if (typeof window === 'undefined') return Promise.resolve(EMPTY);
+
+  if (forceReload) {
+    cached = null;
+  }
 
   if (!cached) {
     cached = fetch('/audio/manifest.json', { cache: 'no-cache' })
