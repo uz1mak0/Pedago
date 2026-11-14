@@ -35,7 +35,7 @@ export interface GrammarExercise {
   title: string;
   tagalogTitle: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
-  summary: string;
+  summary?: string;
   formula: string;
   detailedExplanation: string;
   examples: GrammarExample[];

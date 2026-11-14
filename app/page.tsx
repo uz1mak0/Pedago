@@ -6,7 +6,9 @@ import { TutorialView } from '../components/TutorialView';
 import { FlashcardsView } from '../components/FlashcardsView';
 import { GrammarView } from '../components/GrammarView';
 import { ScenariosView } from '../components/ScenariosView';
-import { initialFlashcards, grammarExercises, conversationScenarios } from '../lib/tagalog-data';
+import { initialFlashcards } from '../lib/tagalog-data';
+import { GrammarExercise, Scenario } from '../lib/types';
+import pedagoData from '../lib/pedago_100_schema_matched.json';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'tutorial' | 'flashcards' | 'grammar' | 'scenarios'>('tutorial');
@@ -114,7 +116,7 @@ export default function Home() {
 
         {activeTab === 'grammar' && (
           <GrammarView
-            exercises={grammarExercises}
+            exercises={pedagoData.grammarExercises as GrammarExercise[]}
             completedTopicIds={completedTopics}
             onToggleCompleteTopic={handleToggleCompleteTopic}
             onAddXp={handleAddXp}
@@ -123,7 +125,7 @@ export default function Home() {
 
         {activeTab === 'scenarios' && (
           <ScenariosView
-            scenarios={conversationScenarios}
+            scenarios={pedagoData.scenarios as Scenario[]}
             completedScenarioIds={completedScenarios}
             onCompleteScenario={handleCompleteScenario}
           />

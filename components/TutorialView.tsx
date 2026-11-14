@@ -1,9 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Volume2, ArrowRight, Sparkles, BookOpen, MessageSquare, Layers, ShieldCheck, Heart, Compass } from 'lucide-react';
+import {
+  Volume2,
+  ArrowRight,
+  Sparkles,
+  BookOpen,
+  MessageSquare,
+  Layers,
+  Heart,
+  Compass,
+} from 'lucide-react';
 import { playTagalogSpeech } from '../lib/audio-voice';
 import { tutorialPhrases } from '../lib/tutorial-phrases';
+import pedagoData from '../lib/pedago_tagalog_data.json';
 
 interface TutorialViewProps {
   onStartLearning: (tab: 'flashcards' | 'grammar' | 'scenarios') => void;
@@ -13,6 +23,7 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
   const [playingWord, setPlayingWord] = useState<string | null>(null);
 
   const testPhrases = tutorialPhrases;
+  const { grammarTopics, scenarios } = pedagoData;
 
   const handlePlay = async (phrase: string) => {
     setPlayingWord(phrase);
@@ -41,7 +52,9 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-            Welcome! As creators from the Philippines, we built <strong>Pedago</strong> for foreigners and passionate language learners who want genuine, high-quality Tagalog. No textbook robotic artificial phrases—only authentic words, accurate pronunciation, 50 detailed grammar topics, and 50 everyday Philippine life scenarios.
+            Welcome! As creators from the Philippines, we built <strong>Pedago</strong> for foreigners and passionate language learners who want genuine, high-quality Tagalog. No textbook robotic artificial phrases—only authentic words, accurate pronunciation,{' '}
+            <strong>{grammarTopics.length} detailed grammar topics</strong>, and{' '}
+            <strong>{scenarios.length} everyday Philippine life scenarios</strong>.
           </p>
 
           {/* Action CTAs */}
@@ -60,7 +73,7 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
               className="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-slate-200 hover:bg-white/10 hover:text-white transition-all backdrop-blur-xl"
             >
               <BookOpen className="h-4 w-4 text-sky-400" />
-              <span>Explore 50 Grammar Topics</span>
+              <span>Explore {grammarTopics.length} Grammar Topics</span>
             </button>
 
             <button
@@ -68,7 +81,7 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
               className="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-slate-200 hover:bg-white/10 hover:text-white transition-all backdrop-blur-xl"
             >
               <MessageSquare className="h-4 w-4 text-amber-400" />
-              <span>Enter 50 Scenarios</span>
+              <span>Enter {scenarios.length} Scenarios</span>
             </button>
           </div>
         </div>
@@ -80,7 +93,9 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
           <div>
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-amber-400" />
-              <h2 className="text-lg sm:text-xl font-bold text-white">Authentic Female Filipino Voice & Pronunciation</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-white">
+                Authentic Female Filipino Voice &amp; Pronunciation
+              </h2>
             </div>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
               Tap any phrase to hear our authentic female native Filipino speaker. Notice the pure vowel quality, natural stress, and warm conversational tone.
@@ -106,11 +121,10 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
                   </span>
                   <button
                     aria-label="Listen audio"
-                    className={`flex h-9 w-9 items-center justify-center rounded-xl transition-all ${
-                      isPlaying
+                    className={`flex h-9 w-9 items-center justify-center rounded-xl transition-all ${isPlaying
                         ? 'bg-amber-400 text-slate-950 scale-110 shadow-md shadow-amber-400/30'
                         : 'bg-white/10 text-slate-300 group-hover:bg-sky-500 group-hover:text-white'
-                    }`}
+                      }`}
                   >
                     <Volume2 className="h-4 w-4" />
                   </button>
@@ -134,12 +148,17 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
                 <Volume2 className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-white">1. Authentic Native Pronunciation</h3>
-                <p className="text-xs text-slate-400">Accurate Tagalog syllable cadence and glottal stress</p>
+                <h3 className="text-sm font-bold text-white">
+                  1. Authentic Native Pronunciation
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Accurate Tagalog syllable cadence and glottal stress
+                </p>
               </div>
             </div>
             <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-              Every word is paired with clear syllable breakdowns (e.g. <em>mah-gahn-DAHNG oo-MAH-gah</em>) and audio to train your ear for natural Philippine conversations.
+              Every word is paired with clear syllable breakdowns (e.g.{' '}
+              <em>mah-gahn-DAHNG oo-MAH-gah</em>) and audio to train your ear for natural Philippine conversations.
             </p>
           </div>
 
@@ -150,8 +169,12 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
                 <BookOpen className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-white">2. 50 Comprehensive Grammar Topics</h3>
-                <p className="text-xs text-slate-400">From the Focus System to Enclitic Particles</p>
+                <h3 className="text-sm font-bold text-white">
+                  2. {grammarTopics.length} Comprehensive Grammar Topics
+                </h3>
+                <p className="text-xs text-slate-400">
+                  From the Focus System to Enclitic Particles
+                </p>
               </div>
             </div>
             <p className="text-xs text-slate-300 mt-3 leading-relaxed">
@@ -166,8 +189,12 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
                 <MessageSquare className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-white">3. 50 Authentic Philippine Scenarios</h3>
-                <p className="text-xs text-slate-400">Jeepneys, Sari-sari stores, Fiestas, and Wet markets</p>
+                <h3 className="text-sm font-bold text-white">
+                  3. {scenarios.length} Authentic Philippine Scenarios
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Jeepneys, Sari-sari stores, Fiestas, and Wet markets
+                </p>
               </div>
             </div>
             <p className="text-xs text-slate-300 mt-3 leading-relaxed">
@@ -182,8 +209,12 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
                 <Layers className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-white">4. Interactive Flashcards & Spaced Repetition</h3>
-                <p className="text-xs text-slate-400">Master essential words with instant audio playback</p>
+                <h3 className="text-sm font-bold text-white">
+                  4. Interactive Flashcards &amp; Spaced Repetition
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Master essential words with instant audio playback
+                </p>
               </div>
             </div>
             <p className="text-xs text-slate-300 mt-3 leading-relaxed">
@@ -193,12 +224,14 @@ export function TutorialView({ onStartLearning }: TutorialViewProps) {
         </div>
       </div>
 
-      {/* Creator\'s Note */}
+      {/* Creator's Note */}
       <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-sky-950/40 via-indigo-950/30 to-slate-900/40 p-5 sm:p-6 backdrop-blur-xl">
         <div className="flex items-start gap-3">
           <Heart className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <p className="text-xs sm:text-sm font-bold text-white">A Heartfelt Message from the Creator</p>
+            <p className="text-xs sm:text-sm font-bold text-white">
+              A Heartfelt Message from the Creator
+            </p>
             <p className="text-xs text-slate-300 leading-relaxed">
               &ldquo;We designed Pedago with zero clutter, zero mandatory cloud logins, and zero fluff so you can focus 100% on learning Tagalog. When you travel to Manila, Cebu, Boracay, or chat with Filipino friends anywhere in the world, your words will carry genuine respect and warmth. Maligayang pag-aaral!&rdquo;
             </p>

@@ -1,0 +1,1506 @@
+{
+    "grammarTopics": [
+        {
+            "id": 1,
+            "category": "Markers & Pronouns",
+            "title": "Topic Marker 'Ang' vs. 'Si'",
+            "explanation": "Use 'ang' before common nouns and 'si' before singular personal names to mark the topic/focus.",
+            "tagalog": "Kumakain ang bata. / Kumakain si Juan.",
+            "english": "The child is eating. / Juan is eating."
+        },
+        {
+            "id": 2,
+            "category": "Markers & Pronouns",
+            "title": "Plural Markers 'Ang mga' vs. 'Sina'",
+            "explanation": "Use 'ang mga' (pronounced 'mang-ah') for plural common nouns and 'sina' before a group of named people.",
+            "tagalog": "Nandito na ang mga bisita. / Umalis na sina Maria at Ana.",
+            "english": "The guests are here already. / Maria and Ana already left."
+        },
+        {
+            "id": 3,
+            "category": "Markers & Pronouns",
+            "title": "Actor/Possessive Marker 'Ng' vs. 'Ni'",
+            "explanation": "'Ng' (pronounced 'nang') marks non-focus actors, direct objects, or possession for common nouns; 'ni' does the same for personal names.",
+            "tagalog": "Kinain ng aso ang tinapay. / Bahay ni Pedro ito.",
+            "english": "The dog ate the bread. / This is Pedro's house."
+        },
+        {
+            "id": 4,
+            "category": "Markers & Pronouns",
+            "title": "Plural Actor/Possessive 'Ng mga' vs. 'Nina'",
+            "explanation": "Use 'ng mga' for plural common nouns and 'nina' for multiple personal names.",
+            "tagalog": "Binili nina Carlo at Leo ang saging.",
+            "english": "Carlo and Leo bought the bananas."
+        },
+        {
+            "id": 5,
+            "category": "Markers & Pronouns",
+            "title": "Locative/Directional Marker 'Sa' vs. 'Kay'",
+            "explanation": "Use 'sa' for places, directions, and time, and 'kay' when directing an action to a specific person.",
+            "tagalog": "Pupunta ako sa palengke. / Ibigay mo ito kay Nanay.",
+            "english": "I am going to the wet market. / Give this to Mom."
+        },
+        {
+            "id": 6,
+            "category": "Markers & Pronouns",
+            "title": "Plural Directional 'Sa mga' vs. 'Kina'",
+            "explanation": "Use 'kina' before a person's name to mean 'at/to [Person]'s place' or 'to [Person and companions]'.",
+            "tagalog": "Makikitulog muna ako kina Tita.",
+            "english": "I'll sleep over at Auntie's house for now."
+        },
+        {
+            "id": 7,
+            "category": "Markers & Pronouns",
+            "title": "Ang-Pronouns (Ako, Ikaw/Ka, Siya)",
+            "explanation": "Singular topic pronouns. 'Ikaw' is used at the start of a sentence or standalone; 'ka' is an enclitic placed after the first word.",
+            "tagalog": "Ikaw ba ang bago? / Kumain ka na ba?",
+            "english": "Are you the new one? / Have you eaten already?"
+        },
+        {
+            "id": 8,
+            "category": "Markers & Pronouns",
+            "title": "Plural Ang-Pronouns (Tayo, Kami, Kayo, Sila)",
+            "explanation": "'Tayo' includes the listener (inclusive 'we'); 'kami' excludes the listener (exclusive 'we').",
+            "tagalog": "Tara, kain na tayo! / Aalis na kami, ingat kayo.",
+            "english": "Come on, let's eat! / We (not you) are leaving now, take care (you all)."
+        },
+        {
+            "id": 9,
+            "category": "Markers & Pronouns",
+            "title": "Ng-Pronouns (Ko, Mo, Niya)",
+            "explanation": "Used for possession after a noun or as the actor of object-focus verbs.",
+            "tagalog": "Nasaan ang susi ko? / Binili niya ang kape.",
+            "english": "Where is my key? / He/She bought the coffee."
+        },
+        {
+            "id": 10,
+            "category": "Markers & Pronouns",
+            "title": "Plural Ng-Pronouns (Natin, Namin, Ninyo, Nila)",
+            "explanation": "'Natin' is inclusive (our/by us); 'namin' is exclusive (our/by us, excluding listener).",
+            "tagalog": "Bayan natin ito. / Ito ang bahay namin.",
+            "english": "This is our (all of us) country. / This is our (my family's) house."
+        },
+        {
+            "id": 11,
+            "category": "Markers & Pronouns",
+            "title": "Sa-Pronouns (Akin, Iyo, Kanya)",
+            "explanation": "Expresses strong possession before a noun (with linker) or direction toward a person.",
+            "tagalog": "Sa akin ang bag na ito. / Ibinigay ko sa kanya.",
+            "english": "This bag is mine. / I gave it to him/her."
+        },
+        {
+            "id": 12,
+            "category": "Markers & Pronouns",
+            "title": "Dual Pronoun 'Kita'",
+            "explanation": "'Kita' replaces 'ko ikaw' when 'I' act upon 'you' (singular).",
+            "tagalog": "Mahal kita. / Tutulungan kita mamaya.",
+            "english": "I love you. / I will help you later."
+        },
+        {
+            "id": 13,
+            "category": "Markers & Pronouns",
+            "title": "Demonstrative Pronouns (Ito, Iyan, Iyon)",
+            "explanation": "'Ito' (this, near speaker), 'iyan' (that, near listener), 'iyon' (that over there, far from both).",
+            "tagalog": "Magkano ito? / Paki-abot nga iyan.",
+            "english": "How much is this? / Please pass that (near you)."
+        },
+        {
+            "id": 14,
+            "category": "Markers & Pronouns",
+            "title": "Locative Demonstratives (Dito, Diyan, Doon)",
+            "explanation": "'Dito' (here), 'diyan' (there near you), 'doon' (over there). Often shifts to rito/riyan/roon after vowels.",
+            "tagalog": "Para po dito sa tabi! / Doon tayo sa kabilang kanto.",
+            "english": "Pull over right here on the side! / Let's go over there to the next corner."
+        },
+        {
+            "id": 15,
+            "category": "Markers & Pronouns",
+            "title": "Ng-Demonstratives (Nito, Niyan, Noon)",
+            "explanation": "Marks non-focus objects or possession for demonstratives ('of this', 'of that').",
+            "tagalog": "Pabili po ng tatlo nito.",
+            "english": "I'd like to buy three of this, please."
+        },
+        {
+            "id": 16,
+            "category": "Markers & Pronouns",
+            "title": "Polite Second-Person 'Kayo' / 'Ninyo'",
+            "explanation": "Using plural pronouns 'kayo' or 'ninyo' with 'po' shows deep respect to an older stranger.",
+            "tagalog": "Saan po kayo bababa, Manong?",
+            "english": "Where will you be getting off, Sir?"
+        },
+        {
+            "id": 17,
+            "category": "Markers & Pronouns",
+            "title": "Linker '-ng' vs. 'Na'",
+            "explanation": "Connects adjectives, numbers, or demonstratives to nouns. Use '-ng' after vowels/n, and 'na' after consonants.",
+            "tagalog": "Mainit na pandesal / Malamig na tubig / Dalawang kape",
+            "english": "Hot pandesal / Cold water / Two coffees"
+        },
+        {
+            "id": 18,
+            "category": "Markers & Pronouns",
+            "title": "Existential 'May' vs. 'Mayroon'",
+            "explanation": "Both mean 'there is/have'. 'May' goes directly before a noun/verb; 'mayroon' (often 'meron') can stand alone or precede enclitics.",
+            "tagalog": "May barya ka ba? — Oo, meron.",
+            "english": "Do you have loose change? — Yes, I do."
+        },
+        {
+            "id": 19,
+            "category": "Markers & Pronouns",
+            "title": "Negative Existential 'Wala'",
+            "explanation": "Means 'none', 'nothing', or 'not present'. Takes the linker '-ng' before nouns.",
+            "tagalog": "Walang pasok bukas! / Wala akong dalang payong.",
+            "english": "There are no classes tomorrow! / I don't have an umbrella with me."
+        },
+        {
+            "id": 20,
+            "category": "Markers & Pronouns",
+            "title": "Identification Negator 'Hindi'",
+            "explanation": "Negates verbs, adjectives, and nouns (unlike 'wala' which negates existence/possession).",
+            "tagalog": "Hindi ako marunong lumangoy. / Hindi ito akin.",
+            "english": "I don't know how to swim. / This is not mine."
+        },
+        {
+            "id": 21,
+            "category": "Actor Focus & Aspect",
+            "title": "Actor Focus '-um-' (Infinitive / Command)",
+            "explanation": "Infix '-um-' is inserted before the first vowel of the root word for basic or natural actions.",
+            "tagalog": "Kain -> Kumain ka na. / Upo -> Umupo muna kayo.",
+            "english": "Eat -> Eat now. / Sit -> Please sit down first."
+        },
+        {
+            "id": 22,
+            "category": "Actor Focus & Aspect",
+            "title": "'-um-' Completed Aspect (Past)",
+            "explanation": "For '-um-' verbs, the completed (past) form is identical to the infinitive form.",
+            "tagalog": "Uminom ako ng taho kaninang umaga.",
+            "english": "I drank taho earlier this morning."
+        },
+        {
+            "id": 23,
+            "category": "Actor Focus & Aspect",
+            "title": "'-um-' Contemplated Aspect (Future)",
+            "explanation": "Drop '-um-' and reduplicate the first syllable of the root word.",
+            "tagalog": "Bili -> Bibili ako ng ulam mamaya.",
+            "english": "Buy -> I will buy viand later."
+        },
+        {
+            "id": 24,
+            "category": "Actor Focus & Aspect",
+            "title": "'-um-' Incompleted Aspect (Progressive)",
+            "explanation": "Reduplicate the first syllable of the root and insert '-um-' before the first vowel.",
+            "tagalog": "Ulan -> Umuulan na naman sa labas!",
+            "english": "Rain -> It is raining outside again!"
+        },
+        {
+            "id": 25,
+            "category": "Actor Focus & Aspect",
+            "title": "Actor Focus 'Mag-' (Infinitive / Command)",
+            "explanation": "Prefix 'mag-' is used for deliberate, outward, or transitive actor-focus actions.",
+            "tagalog": "Magluto tayo ng adobo. / Mag-ingat ka sa biyahe.",
+            "english": "Let's cook adobo. / Take care on your trip."
+        },
+        {
+            "id": 26,
+            "category": "Actor Focus & Aspect",
+            "title": "'Mag-' Completed Aspect ('Nag-')",
+            "explanation": "Change the 'm-' in 'mag-' to 'n-' ('nag-') for completed past actions.",
+            "tagalog": "Nagbayad na ako sa GCash.",
+            "english": "I already paid via GCash."
+        },
+        {
+            "id": 27,
+            "category": "Actor Focus & Aspect",
+            "title": "'Mag-' Incompleted Aspect ('Nag-' + Reduplication)",
+            "explanation": "Use 'nag-' plus the repeated first syllable of the root for ongoing actions.",
+            "tagalog": "Naglalaba si Nanay sa likod-bahay.",
+            "english": "Mom is doing laundry in the backyard."
+        },
+        {
+            "id": 28,
+            "category": "Actor Focus & Aspect",
+            "title": "'Mag-' Contemplated Aspect ('Mag-' + Reduplication)",
+            "explanation": "Use 'mag-' plus the repeated first syllable of the root for future actions.",
+            "tagalog": "Magpapahinga muna ako pag-uwi.",
+            "english": "I will rest first when I get home."
+        },
+        {
+            "id": 29,
+            "category": "Actor Focus & Aspect",
+            "title": "Actor Focus 'Ma-' (Involuntary / State Verbs)",
+            "explanation": "Used for actions that happen naturally or involve bodily states (tulog, ligo, kinig).",
+            "tagalog": "Matulog ka na, maaga pa tayo bukas.",
+            "english": "Go to sleep now, we have an early start tomorrow."
+        },
+        {
+            "id": 30,
+            "category": "Actor Focus & Aspect",
+            "title": "'Ma-' Completed ('Na-') & Progressive ('Na-' + Redup)",
+            "explanation": "Change 'ma-' to 'na-' for past, and reduplicate the root's first syllable for progressive.",
+            "tagalog": "Nakatulog ako sa jeep! / Natutulog pa si bunso.",
+            "english": "I fell asleep on the jeepney! / The youngest is still sleeping."
+        },
+        {
+            "id": 31,
+            "category": "Actor Focus & Aspect",
+            "title": "Actor Focus 'Mang-' (Habitual / Plural Objects)",
+            "explanation": "Often triggers nasal assimilation (m/n/ng) on the root's initial consonant (bili -> mamili).",
+            "tagalog": "Mamamalengke kami bukas ng umaga.",
+            "english": "We will go marketing tomorrow morning."
+        },
+        {
+            "id": 32,
+            "category": "Actor Focus & Aspect",
+            "title": "Ability / Accidental Actor Focus 'Maka-' / 'Naka-'",
+            "explanation": "Expresses 'able to' or 'happened to' do something.",
+            "tagalog": "Nakabili ka ba ng ticket? / Hindi ako makatulog.",
+            "english": "Were you able to buy a ticket? / I can't sleep."
+        },
+        {
+            "id": 33,
+            "category": "Actor Focus & Aspect",
+            "title": "Stative Prefix 'Naka-' (Wearing / Posture)",
+            "explanation": "Describes what someone is wearing or their current physical state/position.",
+            "tagalog": "Naka-uniform na ako. / Nakaupo siya sa harap.",
+            "english": "I am already in uniform. / He/She is sitting in front."
+        },
+        {
+            "id": 34,
+            "category": "Actor Focus & Aspect",
+            "title": "Recent Past Prefix 'Ka-' + Reduplication",
+            "explanation": "Expresses an action that 'just happened' moments ago. Actor takes 'ng' or 'ko/mo'.",
+            "tagalog": "Kakakain ko lang. / Kadarating lang ng Grab.",
+            "english": "I just ate. / The Grab car just arrived."
+        },
+        {
+            "id": 35,
+            "category": "Actor Focus & Aspect",
+            "title": "Social / Participatory Prefix 'Maki-' / 'Naki-'",
+            "explanation": "Used to politely ask to join in or use something belonging to others.",
+            "tagalog": "Makikiraan po. / Makikisuyo po ng bayad.",
+            "english": "Excuse me (passing through). / Please pass my fare."
+        },
+        {
+            "id": 36,
+            "category": "Actor Focus & Aspect",
+            "title": "Reciprocal Prefix 'Mag- -an'",
+            "explanation": "Shows two or more actors doing an action to or with each other.",
+            "tagalog": "Nagkuwentuhan kami habang nagkakape.",
+            "english": "We chatted with each other while having coffee."
+        },
+        {
+            "id": 37,
+            "category": "Actor Focus & Aspect",
+            "title": "Pseudo-Verbs 'Gusto' and 'Ayaw'",
+            "explanation": "Expresses 'want/like' and 'don't want/dislike'. The actor takes 'ng/ko/mo' and the object takes 'ang/ng'.",
+            "tagalog": "Gusto ko ng halo-halo. / Ayaw niya ng maanghang.",
+            "english": "I want halo-halo. / He/She doesn't like spicy food."
+        },
+        {
+            "id": 38,
+            "category": "Actor Focus & Aspect",
+            "title": "Pseudo-Verb 'Kailangan' (Need)",
+            "explanation": "Expresses necessity. Followed by a linker when paired with another verb.",
+            "tagalog": "Kailangan kong mag-load bago umalis.",
+            "english": "I need to buy mobile load before leaving."
+        },
+        {
+            "id": 39,
+            "category": "Actor Focus & Aspect",
+            "title": "Pseudo-Verbs 'Pwede' and 'Bawal'",
+            "explanation": "'Pwede' means allowed/possible; 'bawal' means prohibited/forbidden.",
+            "tagalog": "Pwede bang mag-GCash dito? / Bawal mag-park dito.",
+            "english": "Is GCash accepted here? / Parking is prohibited here."
+        },
+        {
+            "id": 40,
+            "category": "Actor Focus & Aspect",
+            "title": "Pseudo-Verb 'Dapat' (Should / Must)",
+            "explanation": "Expresses obligation or what ought to be done.",
+            "tagalog": "Dapat magdala ka ng payong kasi maulap.",
+            "english": "You should bring an umbrella because it's cloudy."
+        },
+        {
+            "id": 41,
+            "category": "Object & Other Focuses",
+            "title": "Object Focus '-in' (Infinitive / Command)",
+            "explanation": "Suffix '-in' (or '-hin' after vowels) puts the spotlight on the specific object being acted upon.",
+            "tagalog": "Kainin mo na ang pansit. / Lutuin natin ito.",
+            "english": "Eat the pancit now. / Let's cook this."
+        },
+        {
+            "id": 42,
+            "category": "Object & Other Focuses",
+            "title": "'-in' Completed Aspect (Infix '-in-')",
+            "explanation": "Drop the suffix '-in' and insert '-in-' before the first vowel of the root (or 'ni-' before l/r/w/y).",
+            "tagalog": "Kinain ng pusa ang isda. / Niluto ni Ate ang sinigang.",
+            "english": "The cat ate the fish. / Older sister cooked the sinigang."
+        },
+        {
+            "id": 43,
+            "category": "Object & Other Focuses",
+            "title": "'-in' Incompleted Aspect ('-in-' + Redup)",
+            "explanation": "Reduplicate the first syllable and insert '-in-' for ongoing object-focused actions.",
+            "tagalog": "Binabasa ko pa ang message niya.",
+            "english": "I am still reading his/her message."
+        },
+        {
+            "id": 44,
+            "category": "Object & Other Focuses",
+            "title": "'-in' Contemplated Aspect (Redup + '-in')",
+            "explanation": "Reduplicate the first syllable of the root and keep the '-in' suffix for future actions.",
+            "tagalog": "Bibilhin ko ang sapatos sa payday.",
+            "english": "I will buy the shoes on payday."
+        },
+        {
+            "id": 45,
+            "category": "Object & Other Focuses",
+            "title": "Locative / Directional Focus '-an'",
+            "explanation": "Suffix '-an' (or '-han') focuses on the location, surface, or recipient of an action.",
+            "tagalog": "Buksan mo ang pinto. / Hugasan mo ang mga plato.",
+            "english": "Open the door. / Wash the plates."
+        },
+        {
+            "id": 46,
+            "category": "Object & Other Focuses",
+            "title": "'-an' Completed Aspect ('-in- ... -an')",
+            "explanation": "Combine infix '-in-' with suffix '-an' for completed locative/recipient actions.",
+            "tagalog": "Binigyan ako ni Lola ng aguinaldo.",
+            "english": "Grandma gave me a Christmas gift."
+        },
+        {
+            "id": 47,
+            "category": "Object & Other Focuses",
+            "title": "'-an' Progressive & Future Aspects",
+            "explanation": "Add syllable reduplication to '-in- ... -an' for progressive, and reduplication + '-an' for future.",
+            "tagalog": "Dinadagdagan ni Manong ang sago. / Dadalhan kita ng pagkain.",
+            "english": "Manong is adding more sago. / I will bring food to you."
+        },
+        {
+            "id": 48,
+            "category": "Object & Other Focuses",
+            "title": "Benefactive / Instrumental Focus 'I-'",
+            "explanation": "Prefix 'i-' focuses on an item moved away from the actor, an instrument, or something done for someone.",
+            "tagalog": "Isara mo ang bintana. / Iabot mo nga ang asin.",
+            "english": "Close the window. / Please pass the salt."
+        },
+        {
+            "id": 49,
+            "category": "Object & Other Focuses",
+            "title": "'I-' Completed Aspect ('I- + -in-')",
+            "explanation": "Insert '-in-' into the root while keeping the 'i-' prefix.",
+            "tagalog": "Ibinigay ko na ang bayad sa driver.",
+            "english": "I already gave the fare to the driver."
+        },
+        {
+            "id": 50,
+            "category": "Object & Other Focuses",
+            "title": "'I-' Progressive & Future Aspects",
+            "explanation": "Reduplicate the root's first syllable with 'i- + -in-' for progressive, or 'i-' + reduplication for future.",
+            "tagalog": "Ipinapasa ko na ang file. / Iluluto ko ito mamaya.",
+            "english": "I am submitting the file now. / I will cook this later."
+        },
+        {
+            "id": 51,
+            "category": "Object & Other Focuses",
+            "title": "Ability / Accidental Object Focus 'Ma-' / 'Na-'",
+            "explanation": "Used when the object is specific and the actor accidentally or successfully acts on it.",
+            "tagalog": "Naiwan ko ang payong ko sa tricycle!",
+            "english": "I accidentally left my umbrella in the tricycle!"
+        },
+        {
+            "id": 52,
+            "category": "Object & Other Focuses",
+            "title": "Ability / Accidental Locative Focus 'Ma- -an' / 'Na- -an'",
+            "explanation": "Focuses on a person or place affected accidentally or successfully.",
+            "tagalog": "Naabutan kami ng malakas na ulan sa daan.",
+            "english": "We got caught in heavy rain on the road."
+        },
+        {
+            "id": 53,
+            "category": "Object & Other Focuses",
+            "title": "Causative Prefix 'Pa-' (Having Someone Do Something)",
+            "explanation": "Prefix 'pa-' expresses requesting, ordering, or letting someone perform an action.",
+            "tagalog": "Pa-print po nito. / Nagpagupit ako sa barbero.",
+            "english": "Please print this. / I got a haircut at the barber."
+        },
+        {
+            "id": 54,
+            "category": "Object & Other Focuses",
+            "title": "Polite Request Prefix 'Paki-'",
+            "explanation": "Attaches to verb roots to mean 'please do [verb] for me'.",
+            "tagalog": "Paki-check naman kung pumasok na ang GCash.",
+            "english": "Please check if the GCash transfer went through."
+        },
+        {
+            "id": 55,
+            "category": "Object & Other Focuses",
+            "title": "Benefactive 'Ipag-' (Doing for Someone)",
+            "explanation": "Focuses on the person who benefits from an action.",
+            "tagalog": "Ipagluluto kita ng sinigang bukas.",
+            "english": "I will cook sinigang for you tomorrow."
+        },
+        {
+            "id": 56,
+            "category": "Object & Other Focuses",
+            "title": "Instrumental 'Ipang-' (Using a Tool)",
+            "explanation": "Focuses on the tool or money used to accomplish something.",
+            "tagalog": "Ipambili mo na lang ito ng merienda.",
+            "english": "Use this (money) to buy snacks."
+        },
+        {
+            "id": 57,
+            "category": "Object & Other Focuses",
+            "title": "Choosing Actor Focus vs. Object Focus",
+            "explanation": "Use Actor Focus ('ng' object) for indefinite/general objects; use Object Focus ('ang' object) for specific/definite objects.",
+            "tagalog": "Bumili ako ng kape. (a coffee) vs. Binili ko ang kape. (the specific coffee)",
+            "english": "I bought some coffee. vs. I bought the coffee."
+        },
+        {
+            "id": 58,
+            "category": "Object & Other Focuses",
+            "title": "Imperative Softening with 'Nga'",
+            "explanation": "Commands in Tagalog often sound abrupt without 'nga' or 'po'.",
+            "tagalog": "Umupo ka nga muna. / Paki-abot nga po.",
+            "english": "Please have a seat first. / Please pass that over."
+        },
+        {
+            "id": 59,
+            "category": "Object & Other Focuses",
+            "title": "Negative Commands with 'Huwag' (Wag)",
+            "explanation": "Use 'huwag' (colloquial 'wag') + infinitive verb to say 'Don't...'. Enclitics move before the verb!",
+            "tagalog": "Huwag kang mag-alala. / Wag mo nang bilhin iyan.",
+            "english": "Don't worry. / Don't buy that anymore."
+        },
+        {
+            "id": 60,
+            "category": "Object & Other Focuses",
+            "title": "Hortative 'Tara' and 'Tayo Na'",
+            "explanation": "'Tara' (let's go) and 'tayo na' (let's go now) invite the listener to move together.",
+            "tagalog": "Tara na, baka ma-traffic pa tayo sa EDSA!",
+            "english": "Let's go now, or we might get stuck in EDSA traffic!"
+        },
+        {
+            "id": 61,
+            "category": "Enclitic Particles",
+            "title": "Respect Particle 'Po' and 'Opo'",
+            "explanation": "'Po' is inserted into sentences to show respect to elders or strangers; 'opo' means 'yes (with respect)'.",
+            "tagalog": "Salamat po! / Opo, nandito na po ako sa gate.",
+            "english": "Thank you! / Yes, I am already here at the gate."
+        },
+        {
+            "id": 62,
+            "category": "Enclitic Particles",
+            "title": "Informal Respect 'Ho' and 'Oho'",
+            "explanation": "Slightly softer/less formal than 'po', commonly used in Southern Tagalog or with familiar elders.",
+            "tagalog": "Tuloy po kayo! / Oho, Tita, kakain na ho.",
+            "english": "Please come in! / Yes, Auntie, I'm about to eat."
+        },
+        {
+            "id": 63,
+            "category": "Enclitic Particles",
+            "title": "Change-of-State Particle 'Na'",
+            "explanation": "Means 'already' or 'now', indicating a new state or completed transition.",
+            "tagalog": "Kumain na ako. / Tara na, umuulan na!",
+            "english": "I have already eaten. / Let's go now, it's raining!"
+        },
+        {
+            "id": 64,
+            "category": "Enclitic Particles",
+            "title": "Continuation Particle 'Pa'",
+            "explanation": "Means 'still' or 'yet' (with negatives) or 'more/else'.",
+            "tagalog": "Wala pa ang rider. / May kape pa ba?",
+            "english": "The rider isn't here yet. / Is there still more coffee?"
+        },
+        {
+            "id": 65,
+            "category": "Enclitic Particles",
+            "title": "Question Particle 'Ba'",
+            "explanation": "Turns a statement into a yes/no question. Placed after the first word or monosyllabic pronoun.",
+            "tagalog": "Tapos ka na ba? / Malamig ba sa Baguio?",
+            "english": "Are you finished already? / Is it cold in Baguio?"
+        },
+        {
+            "id": 66,
+            "category": "Enclitic Particles",
+            "title": "Limiting Particle 'Lang' (Lamang)",
+            "explanation": "Means 'only', 'just', or softens a request to make it feel small and easy.",
+            "tagalog": "Sandali lang po. / Dito lang sa tabi.",
+            "english": "Just a moment, please. / Right here on the side only."
+        },
+        {
+            "id": 67,
+            "category": "Enclitic Particles",
+            "title": "Confirmation / Emphasis Particle 'Nga'",
+            "explanation": "Means 'indeed', 'really', or politely softens a request.",
+            "tagalog": "Oo nga! / Patingin nga niyan.",
+            "english": "Yes, indeed! / Let me take a look at that."
+        },
+        {
+            "id": 68,
+            "category": "Enclitic Particles",
+            "title": "Contrast / Softening Particle 'Naman'",
+            "explanation": "Expresses gentle contrast ('on the other hand', 'this time') or polite appeal.",
+            "tagalog": "Ikaw naman ang kumanta! / Ang init naman ngayon.",
+            "english": "Your turn to sing! / It's so hot today (complaining gently)."
+        },
+        {
+            "id": 69,
+            "category": "Enclitic Particles",
+            "title": "Realization Particle 'Pala'",
+            "explanation": "Expresses sudden realization, surprise, or remembering something ('oh, so...').",
+            "tagalog": "Ikaw pala iyan! / Ay, walang pasok pala ngayon.",
+            "english": "Oh, it's you! / Oh, there's no class today after all."
+        },
+        {
+            "id": 70,
+            "category": "Enclitic Particles",
+            "title": "Sequence / Priority Particle 'Muna'",
+            "explanation": "Means 'first', 'for now', or 'before doing anything else'.",
+            "tagalog": "Kain muna tayo bago mag-aral.",
+            "english": "Let's eat first before studying."
+        },
+        {
+            "id": 71,
+            "category": "Enclitic Particles",
+            "title": "Addition Particle 'Din' / 'Rin'",
+            "explanation": "Means 'also' or 'too'. Use 'rin' after vowels/w/y and 'din' after consonants.",
+            "tagalog": "Ako rin! / Masarap din ang bibingka nila.",
+            "english": "Me too! / Their bibingka is delicious as well."
+        },
+        {
+            "id": 72,
+            "category": "Enclitic Particles",
+            "title": "Uncertainty Particle 'Kaya'",
+            "explanation": "Expresses wondering or speculation ('I wonder if...', 'perhaps').",
+            "tagalog": "Bukas kaya ang bangko ngayon?",
+            "english": "I wonder if the bank is open today?"
+        },
+        {
+            "id": 73,
+            "category": "Enclitic Particles",
+            "title": "Reported Speech Particle 'Daw' / 'Raw'",
+            "explanation": "Means 'according to someone' or 'they said'. 'Raw' follows vowels; 'daw' follows consonants.",
+            "tagalog": "May bagyo raw bukas. / Umalis na daw siya.",
+            "english": "They say there's a typhoon tomorrow. / Someone said he/she already left."
+        },
+        {
+            "id": 74,
+            "category": "Enclitic Particles",
+            "title": "Reason / Explanation Particle 'Kasi'",
+            "explanation": "Means 'because' (colloquial). Often placed right after the first word of the clause.",
+            "tagalog": "Late ako kasi na-traffic sa Ortigas.",
+            "english": "I'm late because I got stuck in Ortigas traffic."
+        },
+        {
+            "id": 75,
+            "category": "Enclitic Particles",
+            "title": "Golden Rule of Enclitic Ordering",
+            "explanation": "Monosyllabic pronouns (ka, ko, mo) come first, followed by 'na/pa', then 'ba', 'din/rin', 'lang', 'naman', 'po'.",
+            "tagalog": "Naibigay mo na ba po?",
+            "english": "Have you given it already, Sir/Ma'am?"
+        },
+        {
+            "id": 76,
+            "category": "Adjectives, Questions & Time",
+            "title": "'Ma-' Adjectives (Descriptive Quality)",
+            "explanation": "Prefix 'ma-' + root forms common adjectives (masarap = delicious, mainit = hot).",
+            "tagalog": "Masarap ang sinigang ni Lola.",
+            "english": "Grandma's sinigang is delicious."
+        },
+        {
+            "id": 77,
+            "category": "Adjectives, Questions & Time",
+            "title": "Pluralizing 'Ma-' Adjectives",
+            "explanation": "Reduplicate the first syllable of the root to describe plural nouns.",
+            "tagalog": "Mababait ang mga kapitbahay namin.",
+            "english": "Our neighbors are kind."
+        },
+        {
+            "id": 78,
+            "category": "Adjectives, Questions & Time",
+            "title": "Exclamatory 'Ang' + Adjective Root",
+            "explanation": "Drop 'ma-' and put 'ang' before the root to exclaim 'How [adjective]!'",
+            "tagalog": "Ang sarap nito! / Ang mahal naman!",
+            "english": "How delicious this is! / How expensive!"
+        },
+        {
+            "id": 79,
+            "category": "Adjectives, Questions & Time",
+            "title": "Superlative 'Pinaka-'",
+            "explanation": "Attach 'pinaka-' to the full adjective to mean 'the most [adjective]'.",
+            "tagalog": "Ito ang pinakamasarap na halo-halo sa bayan.",
+            "english": "This is the most delicious halo-halo in town."
+        },
+        {
+            "id": 80,
+            "category": "Adjectives, Questions & Time",
+            "title": "Comparative 'Mas ... Kaysa Sa'",
+            "explanation": "Use 'mas' before the adjective and 'kaysa sa' (than) to compare two things.",
+            "tagalog": "Mas malamig sa Tagaytay kaysa sa Maynila.",
+            "english": "It is colder in Tagaytay than in Manila."
+        },
+        {
+            "id": 81,
+            "category": "Adjectives, Questions & Time",
+            "title": "Interrogative 'Ano' (What) & 'Anu-ano'",
+            "explanation": "'Ano' asks 'what' (singular); reduplicated 'anu-ano' asks 'what things' (plural).",
+            "tagalog": "Anong oras na? / Anu-ano ang bibilhin natin?",
+            "english": "What time is it? / What are the things we will buy?"
+        },
+        {
+            "id": 82,
+            "category": "Adjectives, Questions & Time",
+            "title": "Interrogative 'Sino' (Who) & 'Sinu-sino'",
+            "explanation": "'Sino' asks 'who'; 'sinu-sino' asks 'who all' (plural).",
+            "tagalog": "Sino ang kasama mo? / Sinu-sino ang pupunta?",
+            "english": "Who is with you? / Who all are going?"
+        },
+        {
+            "id": 83,
+            "category": "Adjectives, Questions & Time",
+            "title": "Interrogative 'Saan' vs. 'Nasaan' (Where)",
+            "explanation": "Use 'saan' for where an action happens/goes; use 'nasaan' to ask the static location of a person/thing.",
+            "tagalog": "Saan ka pupunta? vs. Nasaan ang susi ko?",
+            "english": "Where are you going? vs. Where is my key?"
+        },
+        {
+            "id": 84,
+            "category": "Adjectives, Questions & Time",
+            "title": "Interrogative 'Kailan' (When)",
+            "explanation": "Asks about dates, days, or future/past times.",
+            "tagalog": "Kailan ang sahod? / Kailan ka uuwi ng probinsya?",
+            "english": "When is payday? / When are you going home to the province?"
+        },
+        {
+            "id": 85,
+            "category": "Adjectives, Questions & Time",
+            "title": "Interrogative 'Bakit' (Why) & 'Kasi / Dahil'",
+            "explanation": "'Bakit' asks 'why'; answer with 'kasi' (conversational) or 'dahil' (formal/written).",
+            "tagalog": "Bakit ka nagmamadali? — Kasi mahuhuli na ako sa klase.",
+            "english": "Why are you rushing? — Because I'm going to be late for class."
+        },
+        {
+            "id": 86,
+            "category": "Adjectives, Questions & Time",
+            "title": "Interrogative 'Paano' (How)",
+            "explanation": "Asks for the manner or method of doing something.",
+            "tagalog": "Paano pumunta sa SM Megamall mula dito?",
+            "english": "How do I get to SM Megamall from here?"
+        },
+        {
+            "id": 87,
+            "category": "Adjectives, Questions & Time",
+            "title": "Interrogative 'Magkano' vs. 'Ilan'",
+            "explanation": "'Magkano' asks 'how much (price)'; 'ilan' asks 'how many (count)'.",
+            "tagalog": "Magkano isang kilo? / Ilan kayong sasakay?",
+            "english": "How much is one kilo? / How many of you are riding?"
+        },
+        {
+            "id": 88,
+            "category": "Adjectives, Questions & Time",
+            "title": "Native Tagalog Numbers (Isa, Dalawa, Tatlo...)",
+            "explanation": "Used for counting objects, people, and general quantities (with linker '-ng' / 'na').",
+            "tagalog": "Dalawang order ng lugaw at tatlong tokwa.",
+            "english": "Two orders of congee and three fried tofu."
+        },
+        {
+            "id": 89,
+            "category": "Adjectives, Questions & Time",
+            "title": "Spanish-Derived Numbers for Money & Time",
+            "explanation": "Filipinos use Spanish-derived numbers (bente, singkwenta, alas-tres) for prices and clock time.",
+            "tagalog": "Singkwenta pesos lang. / Alas-sais na ng gabi.",
+            "english": "Fifty pesos only. / It's already 6:00 in the evening."
+        },
+        {
+            "id": 90,
+            "category": "Adjectives, Questions & Time",
+            "title": "Telling Time with 'Alas-' and 'Y Media'",
+            "explanation": "Prefix 'alas-' before hours (except 'ala-una' for 1:00) and 'y media' for :30.",
+            "tagalog": "Ala-una y media ng hapon.",
+            "english": "1:30 in the afternoon."
+        },
+        {
+            "id": 91,
+            "category": "Adjectives, Questions & Time",
+            "title": "Parts of the Day (Umaga, Tanghali, Hapon, Gabi)",
+            "explanation": "Used with 'ng' for recurring times or 'sa' for upcoming times.",
+            "tagalog": "Magandang umaga po! / Kita tayo mamayang gabi.",
+            "english": "Good morning! / See you tonight."
+        },
+        {
+            "id": 92,
+            "category": "Adjectives, Questions & Time",
+            "title": "Past Time Marker 'Noong' / 'Nung'",
+            "explanation": "Marks completed past dates, days, or events ('last...' or 'when...').",
+            "tagalog": "Nung Linggo, nagsimba kami sa Quiapo.",
+            "english": "Last Sunday, we attended Mass in Quiapo."
+        },
+        {
+            "id": 93,
+            "category": "Adjectives, Questions & Time",
+            "title": "Future Time Marker 'Sa' + Day/Month",
+            "explanation": "Use 'sa' before days of the week or months to mean 'on/this coming...'.",
+            "tagalog": "Sa Sabado ang outing ng barkada.",
+            "english": "The barkada's outing is on Saturday."
+        },
+        {
+            "id": 94,
+            "category": "Adjectives, Questions & Time",
+            "title": "Saying 'Before' ('Bago') and 'After' ('Pagkatapos')",
+            "explanation": "Connects sequential events in daily routines.",
+            "tagalog": "Maghugas ng kamay bago kumain.",
+            "english": "Wash your hands before eating."
+        },
+        {
+            "id": 95,
+            "category": "Adjectives, Questions & Time",
+            "title": "Conditional 'Kung' vs. 'Kapag' (Pag)",
+            "explanation": "'Kung' is for uncertain 'if'; 'kapag' (colloquial 'pag') is for 'when/whenever' something happens.",
+            "tagalog": "Text mo ako pag nakauwi ka na.",
+            "english": "Text me when you get home."
+        },
+        {
+            "id": 96,
+            "category": "Adjectives, Questions & Time",
+            "title": "Expressing 'Even Though' ('Kahit')",
+            "explanation": "'Kahit' means 'even if' or 'although'.",
+            "tagalog": "Pumasok siya sa trabaho kahit umuulan.",
+            "english": "He/She went to work even though it was raining."
+        },
+        {
+            "id": 97,
+            "category": "Adjectives, Questions & Time",
+            "title": "Expressing 'Instead of' ('Imbes Na')",
+            "explanation": "Shows choosing one option over another.",
+            "tagalog": "Naglakad na lang ako imbes na mag-tricycle.",
+            "english": "I just walked instead of taking a tricycle."
+        },
+        {
+            "id": 98,
+            "category": "Adjectives, Questions & Time",
+            "title": "Expressing 'Almost' ('Muntik Nang')",
+            "explanation": "Used for close calls in daily commuting or chores.",
+            "tagalog": "Muntik na akong maiwan ng bus!",
+            "english": "I almost missed the bus!"
+        },
+        {
+            "id": 99,
+            "category": "Adjectives, Questions & Time",
+            "title": "Expressing 'It Depends' ('Depende Sa')",
+            "explanation": "A daily staple phrase when negotiating plans, prices, or traffic.",
+            "tagalog": "Depende kung hindi traffic sa C5.",
+            "english": "It depends if there's no traffic on C5."
+        },
+        {
+            "id": 100,
+            "category": "Adjectives, Questions & Time",
+            "title": "Softening Statements with 'Parang' and 'Medyo'",
+            "explanation": "'Parang' (it seems/kind of) and 'medyo' (somewhat/a bit) keep Filipino speech indirect and polite.",
+            "tagalog": "Medyo malayo pa. / Parang uulan mamaya.",
+            "english": "It's still a bit far. / It looks like it might rain later."
+        }
+    ],
+    "scenarios": [
+        {
+            "id": 1,
+            "category": "Commuting & Transportation",
+            "title": "Passing the Jeepney Fare (Bayad Po)",
+            "context": "Sitting in the middle of a crowded jeepney and asking fellow passengers to pass your fare to the driver.",
+            "dialogue": "Passenger: Bayad po, makikisuyo lang. Isa pong estudyante, galing Crossing.\nDriver: Salamat! Sukli ng bente, isa galing Crossing!"
+        },
+        {
+            "id": 2,
+            "category": "Commuting & Transportation",
+            "title": "Stopping the Jeepney (Para Po)",
+            "context": "Signaling the jeepney driver to pull over safely at an unloading zone.",
+            "dialogue": "Passenger: Para po sa tabi! Sa may tapat lang po ng Mercury Drug.\nDriver: Sige, tabi lang tayo!"
+        },
+        {
+            "id": 3,
+            "category": "Commuting & Transportation",
+            "title": "Negotiating a Tricycle 'Special' Trip",
+            "context": "Asking a TODA tricycle driver for a solo ride straight to your street instead of waiting for other passengers.",
+            "dialogue": "Passenger: Kuya, magkano pag special hanggang Phase 3? Nagmamadali na kasi ako.\nDriver: Singkwenta pesos na lang, Ma'am. Sakay na po."
+        },
+        {
+            "id": 4,
+            "category": "Commuting & Transportation",
+            "title": "MRT/LRT Beep Card Ticket Machine Issue",
+            "context": "Reporting to the station teller that the reload kiosk swallowed your bill without adding credit.",
+            "dialogue": "Commuter: Ate, kinain po ng machine yung 100 pesos ko pero hindi nag-reflect sa Beep card.\nTeller: Anong machine number po? Fill-upan niyo lang po itong incident slip."
+        },
+        {
+            "id": 5,
+            "category": "Commuting & Transportation",
+            "title": "MRT/LRT Priority Lane & Skip Train",
+            "context": "Asking the platform guard where the priority queue is and if a skip train is arriving.",
+            "dialogue": "Commuter: Kuya Guard, dito po ba yung pila para sa senior at buntis?\nGuard: Opo, dito po sa harap. Hintayin natin yung parating na tren."
+        },
+        {
+            "id": 6,
+            "category": "Commuting & Transportation",
+            "title": "Messaging Grab/Angkas Rider During Heavy Rain",
+            "context": "Reassuring your rider in the app chat so they don't cancel during payday rush hour rain.",
+            "dialogue": "Passenger: Kuya, wag niyo po i-cancel, dagdagan ko na lang po sa tip, stranded po kami.\nRider: Sige po Ma'am, papunta na po ako, medyo traffic lang sa kanto."
+        },
+        {
+            "id": 7,
+            "category": "Commuting & Transportation",
+            "title": "Guiding an Angkas/JoyRide Rider Through Inner Streets",
+            "context": "Giving turn-by-turn directions using familiar barangay landmarks.",
+            "dialogue": "Passenger: Kuya, kanan po sa may kulay berdeng gate, tapat po ng bakery.\nRider: Copy po, dito na po ba sa tapat ng tindahan?"
+        },
+        {
+            "id": 8,
+            "category": "Commuting & Transportation",
+            "title": "Modern E-Jeepney Tap-In",
+            "context": "Asking the conductor about the fare and where to tap your card on an air-conditioned minibus.",
+            "dialogue": "Passenger: Kuya, magkano po hanggang Cubao at saan po ita-tap itong card?\nConductor: Kinse pesos po. Dito lang po sa scanner pagbaba niyo."
+        },
+        {
+            "id": 9,
+            "category": "Commuting & Transportation",
+            "title": "Provincial Bus Terminal (PITX / Cubao)",
+            "context": "Asking the dispatcher which gate the bus to Baguio or Batangas is parked at.",
+            "dialogue": "Passenger: Boss, anong gate po yung bus pa-Baguio? Pwede pa po ba walk-in?\nDispatcher: Sa Gate 4, Boss. May bakante pa sa likod, akyat ka na."
+        },
+        {
+            "id": 10,
+            "category": "Commuting & Transportation",
+            "title": "UV Express Seating Squeeze",
+            "context": "Politely telling the barker that the middle bench is already at full capacity.",
+            "dialogue": "Passenger: Kuya, masikip na po, tatlo lang po talaga kasya dito sa gitna.\nBarker: Sige, sa likod na lang yung isa. Larga na!"
+        },
+        {
+            "id": 11,
+            "category": "Commuting & Transportation",
+            "title": "Pedicab Ride Across a Flooded Street",
+            "context": "Negotiating with a pedicab driver to cross ankle-deep floodwater during monsoon rain.",
+            "dialogue": "Passenger: Kuya, magkano patawid lang sa kabilang kanto? Baha na kasi masyado.\nDriver: Bente pesos isa, Ma'am. Itaas niyo lang po yung paa niyo."
+        },
+        {
+            "id": 12,
+            "category": "Commuting & Transportation",
+            "title": "RFID Balance Delay at NLEX/SLEX Tollgate",
+            "context": "Explaining to the toll teller that you just reloaded your Autosweep/Easytrip via GCash.",
+            "dialogue": "Driver: Ma'am, kakapag-load ko lang po sa GCash limang minuto ang nakalipas.\nTeller: Sige po Sir, patingin na lang po ng reference number para ma-manual encode natin."
+        },
+        {
+            "id": 13,
+            "category": "Commuting & Transportation",
+            "title": "Flat Tire at a Roadside Vulcanizing Shop",
+            "context": "Asking the mechanic how long it will take to patch a punctured tire.",
+            "dialogue": "Motorist: Boss, na-flat yung gulong ko sa likod. Gaano katagal po i-vulcanize?\nMechanic: Mga kinse minutos lang, Boss. Upo muna kayo."
+        },
+        {
+            "id": 14,
+            "category": "Commuting & Transportation",
+            "title": "Subdivision Gate Visitor ID Check",
+            "context": "Leaving your valid ID at the HOA guardhouse when visiting a relative.",
+            "dialogue": "Visitor: Good morning po, Guard. Bibisita lang po kay Tita Elena sa Phase 2, Block 5.\nGuard: Paki-iwan na lang po ng isang valid ID at pakisulat ng pangalan sa logbook."
+        },
+        {
+            "id": 15,
+            "category": "Commuting & Transportation",
+            "title": "Asking Locals for Directions (Pagtatanong)",
+            "context": "Asking bystanders at a street corner how to reach the municipal hall.",
+            "dialogue": "Traveler: Magandang umaga po, saan po banda yung munisipyo dito? Nilalakad lang po ba?\nLocal: Diretsuhin mo lang itong kalsada, tapos kaliwa ka sa may simbahan."
+        },
+        {
+            "id": 16,
+            "category": "Commuting & Transportation",
+            "title": "Paying Terminal Fees at a Ferry Port",
+            "context": "Asking port staff where to pay terminal and environmental fees before boarding a RoRo.",
+            "dialogue": "Passenger: Miss, saan po nagbabayad ng terminal fee bago pumasok sa boarding gate?\nStaff: Sa Window 2 po, Sir. Ipakita niyo lang po yung ticket niyo."
+        },
+        {
+            "id": 17,
+            "category": "Commuting & Transportation",
+            "title": "NAIA Terminal Transfer Shuttle",
+            "context": "Asking airport staff how to transfer from NAIA Terminal 3 to Terminal 1.",
+            "dialogue": "Traveler: Excuse me po, saan po yung sakayan ng shuttle papuntang Terminal 1?\nStaff: Sa Arrival Bay 12 po, Ma'am. Every 30 minutes po ang alis."
+        },
+        {
+            "id": 18,
+            "category": "Commuting & Transportation",
+            "title": "Reminding the Jeepney Driver About Change",
+            "context": "Politely reminding the driver of your change before getting off.",
+            "dialogue": "Passenger: Manong, yung sukli ko po sa bente, isa lang po yung binayad ko.\nDriver: Ay oo nga, pasensya na! Ito yung sukli mo."
+        },
+        {
+            "id": 19,
+            "category": "Commuting & Transportation",
+            "title": "Checking Last Trip Schedule at Night",
+            "context": "Asking the jeepney barker if there are still trips heading to your area late at night.",
+            "dialogue": "Commuter: Kuya, may biyahe pa po ba pa-Fairview?\nBarker: Last trip na ito, Boss! Sakay na, aalis na rin kami."
+        },
+        {
+            "id": 20,
+            "category": "Commuting & Transportation",
+            "title": "Asking a Seatmate to Move Over (Usog Lang Po)",
+            "context": "Asking passengers on a jeepney bench to slide over slightly so you can sit.",
+            "dialogue": "Passenger: Makiki-usog lang po nang konti, isa pa daw po sabi ni Manong.\nSeatmate: Sige po, upo na kayo."
+        },
+        {
+            "id": 21,
+            "category": "Sari-Sari Store & Food",
+            "title": "Buying in Tingi at a Sari-Sari Store",
+            "context": "Knocking on the store's metal grill with a coin to buy single sachets and ice water.",
+            "dialogue": "Buyer: Pabili po! Isang sachet ng shampoo, isang bawang, at dalawang ice tubig.\nStore Owner: Sandali lang! Ito na, kinse pesos lahat."
+        },
+        {
+            "id": 22,
+            "category": "Sari-Sari Store & Food",
+            "title": "Deposito sa Bote (Empty Glass Bottle Promise)",
+            "context": "Promising to return the glass soda bottle after pouring the drink into a cup.",
+            "dialogue": "Buyer: Ate, isalin ko lang po sa baso yung Coke, ibabalik ko rin po agad yung bote.\nStore Owner: Sige, walang problema, basta balik mo agad ha."
+        },
+        {
+            "id": 23,
+            "category": "Sari-Sari Store & Food",
+            "title": "Haggling (Tawad) in Divisoria or Baclaran",
+            "context": "Asking for a discount or 'buena mano' price when buying multiple items.",
+            "dialogue": "Shopper: Ate, magkano kung tatlo kukunin ko? Baka pwedeng bawasan pa, buena mano naman!\nVendor: Sige na nga, 250 na lang yung tatlo para sa'yo."
+        },
+        {
+            "id": 24,
+            "category": "Sari-Sari Store & Food",
+            "title": "Buying Fresh Fish at the Wet Market (Palengke)",
+            "context": "Checking the freshness of fish and asking the vendor to scale and clean it.",
+            "dialogue": "Shopper: Sariwa po ba itong galunggong? Isang kilo nga po, paki-kaliskisan at paki-linis na rin.\nVendor: Bagong huli lang yan, Ma'am! Hintayin niyo lang saglit, lilinisin ko na."
+        },
+        {
+            "id": 25,
+            "category": "Sari-Sari Store & Food",
+            "title": "Asking for Dagdag (Freebie) on Fruits",
+            "context": "Playfully asking the vendor for one extra piece after weighing a kilo of mangoes or calamansi.",
+            "dialogue": "Shopper: Ate, sakto na sa isang kilo. Baka may pa-dagdag ka naman diyang isang piraso!\nVendor: O sige, dagdagan natin ng isa para bumalik ka ulit!"
+        },
+        {
+            "id": 26,
+            "category": "Sari-Sari Store & Food",
+            "title": "Paying with a 1,000-Peso Bill Early in the Morning",
+            "context": "Apologizing for not having smaller bills and offering to pay via GCash.",
+            "dialogue": "Customer: Pasensya na po, wala pa akong barya sa isang libo. Pwede po ba mag-GCash na lang?\nCashier: Opo Ma'am, pwede po. I-scan niyo na lang po yung QR code dito."
+        },
+        {
+            "id": 27,
+            "category": "Sari-Sari Store & Food",
+            "title": "GCash Cash-In at the Neighborhood Store",
+            "context": "Handing over cash and your mobile number for a GCash cash-in transaction.",
+            "dialogue": "Customer: Ate, pa-cash in po ng 500. Ito po yung number ko, may 10 pesos na po diyan para sa fee.\nStore Owner: Paki-check kung tama yung pangalan na lumabas sa screen."
+        },
+        {
+            "id": 28,
+            "category": "Sari-Sari Store & Food",
+            "title": "Buying Hot Pandesal at 6:00 AM",
+            "context": "Asking the local bakery if the pandesal is freshly baked from the oven.",
+            "dialogue": "Buyer: Kuya, mainit pa po ba yung pandesal? Pabili pong trenta pesos at isang Reno.\nBaker: Kakalabas lang sa pugon niyan, Ate! Mainit-init pa."
+        },
+        {
+            "id": 29,
+            "category": "Sari-Sari Store & Food",
+            "title": "Catching the Morning Taho Vendor",
+            "context": "Calling out to the taho vendor with your own mug for extra sago and arnibal.",
+            "dialogue": "Buyer: Manong, taho! Sandali lang po, kukuha lang ako ng baso. Pa-dagdag po ng sago!\nVendor: Sige po, bente pesos po itong malaking baso."
+        },
+        {
+            "id": 30,
+            "category": "Sari-Sari Store & Food",
+            "title": "Ordering Turo-Turo at a Carinderia",
+            "context": "Pointing at viands and asking for complimentary sinigang broth.",
+            "dialogue": "Customer: Ate, kalahating gulay, isang pork chop, at pahingi po ng sabaw na may sinigang.\nServer: Dito niyo po kakainin o take-out?"
+        },
+        {
+            "id": 31,
+            "category": "Sari-Sari Store & Food",
+            "title": "Buying Street Food (Tusok-Tusok)",
+            "context": "Standing by the fishball cart and asking which jar has spicy vinegar.",
+            "dialogue": "Customer: Kuya, alin po dito yung maanghang na suka? Dalawang order nga po ng kwek-kwek.\nVendor: Yung may sili sa kanan, Boss. Wag mo lang isasawsaw yung nakagatan na ha!"
+        },
+        {
+            "id": 32,
+            "category": "Sari-Sari Store & Food",
+            "title": "Ordering Halo-Halo in April",
+            "context": "Customizing your halo-halo toppings at a summer stand.",
+            "dialogue": "Customer: Ate, isang special halo-halo nga po, pa-extra ng leche flan pero wag na po lagyan ng kaong.\nVendor: Sige po, hintayin niyo lang saglit, ikakaskas ko na yung yelo."
+        },
+        {
+            "id": 33,
+            "category": "Sari-Sari Store & Food",
+            "title": "Water Refilling Station Delivery",
+            "context": "Texting or calling your local water station to deliver purified water gallons.",
+            "dialogue": "Customer: Kuya, pa-deliver po ng tatlong slim at isang bilog na galon, dito po sa dulo.\nDelivery Rider: Sige po Ma'am, i-schedule ko na po ngayong hapon."
+        },
+        {
+            "id": 34,
+            "category": "Sari-Sari Store & Food",
+            "title": "Ordering an LPG Tank Replacement",
+            "context": "Calling the gas dealer because the stove ran out of gas mid-cooking.",
+            "dialogue": "Customer: Hello, pa-deliver po ng isang 11kg LPG tank sa Block 4 Lot 12, naubusan po kami habang nagluluto.\nStaff: On the way na po yung rider namin, mga sampung minuto lang."
+        },
+        {
+            "id": 35,
+            "category": "Sari-Sari Store & Food",
+            "title": "Mall Entrance Bag Inspection",
+            "context": "Opening your backpack for the security guard at the mall entrance.",
+            "dialogue": "Shopper: Good morning po, Guard. Ito po yung bag ko.\nGuard: Salamat po, Ma'am. Enjoy shopping!"
+        },
+        {
+            "id": 36,
+            "category": "Sari-Sari Store & Food",
+            "title": "Asking for Sizes at a Department Store",
+            "context": "Asking the sales attendant to check the stockroom for a medium size.",
+            "dialogue": "Shopper: Miss, may Medium pa po kayo nito sa stockroom, o last piece na po ito sa rack?\nAttendant: Check ko lang po saglit sa stockroom, Sir. Ano pong kulay?"
+        },
+        {
+            "id": 37,
+            "category": "Sari-Sari Store & Food",
+            "title": "Supermarket Senior Citizen / PWD Priority Lane",
+            "context": "Presenting your grandmother's OSCA ID and booklet at the checkout counter.",
+            "dialogue": "Shopper: Miss, ito po yung Senior Citizen ID at booklet ng lola ko para sa discount.\nCashier: Sige po, paki-pirma na lang po dito sa booklet pagkatapos ma-punch."
+        },
+        {
+            "id": 38,
+            "category": "Sari-Sari Store & Food",
+            "title": "Asking for Unli-Rice Refill at Mang Inasal",
+            "context": "Catching the server's attention during peak lunch hour for extra rice and soup.",
+            "dialogue": "Diner: Kuya, pa-refill naman po ng extra rice at sabaw pagdaan niyo!\nServer: Sige po Sir, kuha lang po ako ng mainit na kanin."
+        },
+        {
+            "id": 39,
+            "category": "Sari-Sari Store & Food",
+            "title": "Ordering Samgyupsal Refills",
+            "context": "Asking the restaurant staff for another round of pork belly and lettuce.",
+            "dialogue": "Diner: Ate, pa-refill po ng dalawang samgyupsal plain, lettuce, at cheese!\nServer: Copy po, i-serve po namin agad."
+        },
+        {
+            "id": 40,
+            "category": "Sari-Sari Store & Food",
+            "title": "Splitting the Bill (KKB - Kanya-Kanyang Bayad)",
+            "context": "Calculating everyone's share after eating out with friends.",
+            "dialogue": "Friend 1: Magkano ambag natin isa? I-send ko na lang sa GCash mo.\nFriend 2: 285 pesos each! Na-send ko na sa GC yung QR code ko."
+        },
+        {
+            "id": 41,
+            "category": "Delivery & Digital Life",
+            "title": "Receiving a Shopee/Lazada COD Parcel",
+            "context": "Answering the delivery rider's morning call and confirming exact cash.",
+            "dialogue": "Rider: Ma'am, Shopee po, nandito na po sa labas ng gate, 349 pesos po.\nBuyer: Opo Kuya, bababa na po ako, sakto na po yung bayad."
+        },
+        {
+            "id": 42,
+            "category": "Delivery & Digital Life",
+            "title": "Leaving COD Cash with a Neighbor",
+            "context": "Asking your trusted neighbor to receive and pay for your parcel while you are at work.",
+            "dialogue": "Neighbor 1: Ate Marites, makikisuyo po sana, iiwan ko po yung 350 pesos para sa Shopee parcel ko.\nNeighbor 2: Sige, iwan mo lang dito sa mesa, ako na mag-aabot pag dumating."
+        },
+        {
+            "id": 43,
+            "category": "Delivery & Digital Life",
+            "title": "Submitting an Unboxing Video for Refund",
+            "context": "Messaging an online seller with your uncut unboxing video to request a refund.",
+            "dialogue": "Buyer: Hello seller, basag po yung item pagbukas ko. I-attach ko po yung full unboxing video.\nSeller: Pasensya na po, paki-file na lang po ng Return/Refund sa app para ma-approve namin."
+        },
+        {
+            "id": 44,
+            "category": "Delivery & Digital Life",
+            "title": "Delayed GCash OTP Inside a Mall",
+            "context": "Explaining to the cashier why your mobile payment confirmation is taking a moment.",
+            "dialogue": "Customer: Sandali lang po Miss, mahina po kasi signal dito sa loob, hinihintay ko lang yung OTP.\nCashier: Walang problema po, Ma'am. Patingin na lang po ng receipt pag pumasok na."
+        },
+        {
+            "id": 45,
+            "category": "Delivery & Digital Life",
+            "title": "Reporting Blinking Red LOS Internet Outage",
+            "context": "Calling your internet provider (PLDT/Converge/Globe) when the modem shows a red LOS light.",
+            "dialogue": "Subscriber: Good morning, blinking red po yung LOS light ng modem namin simula kagabi pa.\nAgent: Check ko po yung line status niyo. May reported area outage po sa barangay niyo."
+        },
+        {
+            "id": 46,
+            "category": "Delivery & Digital Life",
+            "title": "Asking a Friend for Mobile Hotspot",
+            "context": "Borrowing a quick hotspot connection so you can register a data promo.",
+            "dialogue": "Friend 1: Pre, pa-hotspot saglit, maglo-load lang ako sa GlobeOne app.\nFriend 2: Sige, naka-on na, 'AndroidAP' yung pangalan."
+        },
+        {
+            "id": 47,
+            "category": "Delivery & Digital Life",
+            "title": "Facebook Marketplace Meet-Up vs. Lalamove",
+            "context": "Coordinating with a seller whether to meet at an MRT station or book a courier.",
+            "dialogue": "Buyer: Boss, pwede ba meet-up sa MRT Shaw turnstile mamayang 6 PM?\nSeller: Medyo malayo ako doon, Boss. Pa-Lalamove mo na lang, hati tayo sa delivery fee."
+        },
+        {
+            "id": 48,
+            "category": "Delivery & Digital Life",
+            "title": "Instructing a Lalamove Courier",
+            "context": "Confirming the pinned address and who pays the delivery fee.",
+            "dialogue": "Sender: Kuya, naka-pin na po yung exact address. Sender na lang po magbabayad ng fee.\nRider: Sige po Ma'am, nandito na po ako sa pickup point."
+        },
+        {
+            "id": 49,
+            "category": "Delivery & Digital Life",
+            "title": "Warning Parents About Text Phishing Scams",
+            "context": "Alerting your parents in the family group chat not to click suspicious links.",
+            "dialogue": "Child: Ma, Pa, wag niyo po iki-click yung text na may link tungkol sa points o raffle, scam po yan.\nParent: Buti sinabi mo anak, ide-delete ko na agad."
+        },
+        {
+            "id": 50,
+            "category": "Delivery & Digital Life",
+            "title": "Using a Neighborhood Piso Wi-Fi Vendo",
+            "context": "Dropping coins into a Piso Wi-Fi machine to finish submitting schoolwork.",
+            "dialogue": "Student: Ate, maghuhulog lang po ako ng sampung piso sa Piso Wi-Fi niyo.\nOwner: Sige lang, pindutin mo lang yung 'Insert Coin' sa portal."
+        },
+        {
+            "id": 51,
+            "category": "Delivery & Digital Life",
+            "title": "Paying Bills via 7-Eleven CLiQQ Kiosk",
+            "context": "Asking the clerk for help when the CLiQQ receipt printer runs out of paper.",
+            "dialogue": "Customer: Kuya, naubusan po ng papel yung CLiQQ machine, magbabayad po sana ako ng Meralco.\nClerk: Ay sandali lang po Sir, palitan ko lang po yung thermal paper."
+        },
+        {
+            "id": 52,
+            "category": "Delivery & Digital Life",
+            "title": "InstaPay vs. PESONet Bank Transfer",
+            "context": "Reassuring a client that you sent payment via InstaPay for instant crediting.",
+            "dialogue": "Client: Na-transfer ko na po via InstaPay para mag-reflect agad sa account niyo today.\nMerchant: Confirmed po! Na-receive na namin, ipapadala na namin yung order niyo."
+        },
+        {
+            "id": 53,
+            "category": "Delivery & Digital Life",
+            "title": "Foodpanda / GrabFood Condo Lobby Drop-Off",
+            "context": "Giving instructions to your food delivery rider for condo concierge drop-off.",
+            "dialogue": "Customer: Kuya, paki-iwan na lang po sa lobby concierge table, no need for plastic utensils.\nRider: Sige po Ma'am, na-iwan ko na po kay Kuya Guard."
+        },
+        {
+            "id": 54,
+            "category": "Delivery & Digital Life",
+            "title": "Asking for Wi-Fi Password at a Coffee Shop",
+            "context": "Asking the barista for the Wi-Fi voucher code after ordering.",
+            "dialogue": "Customer: Miss, ano pong Wi-Fi password niyo dito?\nBarista: Nasa ilalim po ng official receipt niyo yung Wi-Fi code, Sir."
+        },
+        {
+            "id": 55,
+            "category": "Delivery & Digital Life",
+            "title": "Topping Up Load at a Convenience Store",
+            "context": "Buying regular load or an e-PIN at the counter.",
+            "dialogue": "Customer: Kuya, pa-load po ng 100 sa Smart.\nClerk: Pakisulat na lang po yung mobile number niyo dito sa notepad."
+        },
+        {
+            "id": 56,
+            "category": "Home, Family & Neighborhood",
+            "title": "Pagmamano at a Family Gathering",
+            "context": "Greeting elders upon arriving at a family reunion or Sunday visit.",
+            "dialogue": "Visitor: Magandang tanghali po, Lolo, Lola. Mano po.\nGrandparent: Kaawaan ka ng Diyos, apo. Kumain na ba kayo?"
+        },
+        {
+            "id": 57,
+            "category": "Home, Family & Neighborhood",
+            "title": "Bringing Home Pasalubong",
+            "context": "Handing over snacks or local delicacies after coming home from work or a trip.",
+            "dialogue": "Worker: Ma, may dala akong pasalubong na buko pie at ensaymada sa kusina.\nMother: Naku, nag-abala ka pa! Timpla tayo ng kape."
+        },
+        {
+            "id": 58,
+            "category": "Home, Family & Neighborhood",
+            "title": "Packing 'Sharon' (Take-Home Food) at a Fiesta",
+            "context": "Being urged by the host to pack leftover party food to bring home.",
+            "dialogue": "Host: O, mag-balot ka na ng menudo at shanghai para sa mga bata sa bahay!\nGuest: Naku Tita, salamat po! Magbabalot na po ako ng konti."
+        },
+        {
+            "id": 59,
+            "category": "Home, Family & Neighborhood",
+            "title": "The 'Last Piece' Etiquette (Hiya)",
+            "context": "Asking everyone at the table before taking the final piece of food on a shared platter.",
+            "dialogue": "Diner 1: Sino pa kakain nitong huling piraso ng lumpia?\nDiner 2: Sige, kunin mo na, busog na ako!"
+        },
+        {
+            "id": 60,
+            "category": "Home, Family & Neighborhood",
+            "title": "Inviting a Passerby to Eat ('Kain tayo!')",
+            "context": "Offering food to a neighbor or coworker who walks past while you are eating.",
+            "dialogue": "Person Eating: Kain po tayo! Mainit pa yung sinigang.\nPasserby: Sige lang, salamat! Katatapos lang din naming mag-tanghalian."
+        },
+        {
+            "id": 61,
+            "category": "Home, Family & Neighborhood",
+            "title": "Checking During a Sudden Brownout",
+            "context": "Asking your neighbor over the fence if the power outage affects the whole street.",
+            "dialogue": "Neighbor 1: Mare, brownout din ba sa inyo o sa amin lang nag-trip yung breaker?\nNeighbor 2: Wala rin dito sa amin! Nag-post na daw ang Meralco sa Facebook."
+        },
+        {
+            "id": 62,
+            "category": "Home, Family & Neighborhood",
+            "title": "Preparing for a Typhoon (Signal #3)",
+            "context": "Coordinating with family members to store water and charge power banks before a storm.",
+            "dialogue": "Parent: I-charge niyo na lahat ng power bank at punuin na yung mga drum ng tubig.\nChild: Opo, nakahanda na rin yung flashlight at emergency radio."
+        },
+        {
+            "id": 63,
+            "category": "Home, Family & Neighborhood",
+            "title": "Floodwater Entering the Garage",
+            "context": "Moving appliances and shoes to higher ground during heavy monsoon rain.",
+            "dialogue": "Family Member 1: Iakyat na natin yung electric fan at mga sapatos sa second floor!\nFamily Member 2: Sige, kunin ko na rin yung extension cord sa baba."
+        },
+        {
+            "id": 64,
+            "category": "Home, Family & Neighborhood",
+            "title": "Borrowing a Ladder from Next Door",
+            "context": "Asking a neighbor over the gate if you can borrow a ladder briefly.",
+            "dialogue": "Neighbor 1: Kuya Bert, pwede po ba makahiram ng hagdan saglit? Magpapalit lang po ako ng bumbilya.\nNeighbor 2: Sige, kunin mo lang doon sa may garahe namin."
+        },
+        {
+            "id": 65,
+            "category": "Home, Family & Neighborhood",
+            "title": "10:00 PM Karaoke Curfew Reminder",
+            "context": "Politely asking a neighbor to lower the videoke volume late at night.",
+            "dialogue": "Neighbor: Pasensya na po, baka pwedeng pahinaan na lang po nang konti yung videoke, may pasok pa kami bukas.\nHost: Ay pasensya na po! Hihinaan na po namin agad."
+        },
+        {
+            "id": 66,
+            "category": "Home, Family & Neighborhood",
+            "title": "Sunday Family Lunch After Mass",
+            "context": "Deciding as a family after Sunday morning Mass where to eat lunch.",
+            "dialogue": "Parent: Saan tayo magta-tanghalian pagkatapos ng Misa?\nChild: Mag-Mang Inasal na lang tayo, Pa, para may unli-rice!"
+        },
+        {
+            "id": 67,
+            "category": "Home, Family & Neighborhood",
+            "title": "Rescuing Laundry (Sampayan) From Sudden Rain",
+            "context": "Calling everyone at home to pull dry clothes off the clothesline when rain starts.",
+            "dialogue": "Parent: Umuulan na! Tulungan niyo akong hanguin yung mga sinampay sa labas!\nChild: Nandiyan na po, kukunin ko na yung mga tuwalya!"
+        },
+        {
+            "id": 68,
+            "category": "Home, Family & Neighborhood",
+            "title": "OFW Balikbayan Box Video Call",
+            "context": "Talking to an aunt abroad on Messenger while she packs a balikbayan box.",
+            "dialogue": "Niece: Tita, wag niyo na po masyadong damihan yung chocolates, baka mag-overweight yung box!\nAunt: Hindi yan, sakto lang sa sukat ng LBC box."
+        },
+        {
+            "id": 69,
+            "category": "Home, Family & Neighborhood",
+            "title": "Claiming Remittance at Palawan / Cebuana",
+            "context": "Presenting your control number and valid ID at the remittance counter.",
+            "dialogue": "Customer: Miss, magki-claim po ng padala. Ito po yung control number at yung valid ID ko.\nTeller: Paki-fill out lang po itong receive form at paki-pirma sa ibaba."
+        },
+        {
+            "id": 70,
+            "category": "Home, Family & Neighborhood",
+            "title": "Hiring an Aircon Cleaning Technician",
+            "context": "Explaining an issue with your window-type AC and asking for the service rate.",
+            "dialogue": "Homeowner: Kuya, maingay na po yung aircon namin at hindi na masyadong malamig. Magkano general cleaning?\nTechnician: 600 pesos po pag window-type, Ma'am."
+        },
+        {
+            "id": 71,
+            "category": "Home, Family & Neighborhood",
+            "title": "Rushing Out for the Garbage Truck",
+            "context": "Bringing out segregated trash bags when the barangay garbage truck sounds its horn.",
+            "dialogue": "Resident: Kuya, sandali lang po! Ito na po yung nabubulok at di-nabubulok.\nCollector: Sige po, iabot niyo na lang dito."
+        },
+        {
+            "id": 72,
+            "category": "Home, Family & Neighborhood",
+            "title": "Securing Trash Bins from Stray Animals",
+            "context": "Discussing with family how to keep stray cats and dogs from scattering garbage.",
+            "dialogue": "Parent: Lagyan natin ng tali yung takip ng basurahan para hindi mahalungkat ng mga pusa sa gabi.\nChild: Sige Pa, itatali ko na po."
+        },
+        {
+            "id": 73,
+            "category": "Home, Family & Neighborhood",
+            "title": "Welcoming a Guest ('Tuloy Po Kayo')",
+            "context": "Inviting a visitor inside the house and offering water or snacks.",
+            "dialogue": "Host: Uy, nandiyan ka na pala! Tuloy po kayo, upo muna kayo. Gusto mo ba ng juice o kape?\nGuest: Salamat! Tubig na lang muna, medyo mainit sa labas."
+        },
+        {
+            "id": 74,
+            "category": "Home, Family & Neighborhood",
+            "title": "Joining a Neighborhood Paluwagan",
+            "context": "Checking with the organizer which payout slot is still available.",
+            "dialogue": "Member: Ate, anong petsa pa po yung bakanteng sahod sa paluwagan niyo ngayong cut-off?\nOrganizer: Yung katapusan ng buwan na lang ang bakante, kunin mo na ba?"
+        },
+        {
+            "id": 75,
+            "category": "Home, Family & Neighborhood",
+            "title": "The 'Filipino Goodbye' at the Gate",
+            "context": "Saying goodbye inside the house, then continuing to chat for 20 minutes by the gate.",
+            "dialogue": "Guest: Una na po kami, Tita! Ingat po kayo dito... ay oo nga pala, tungkol dun sa sinabi mo kanina...\nHost: Sige, ingat din kayo! Chat mo ako pag nakauwi na kayo."
+        },
+        {
+            "id": 76,
+            "category": "School, Work & Errands",
+            "title": "Waiting for #WalangPasok Announcements",
+            "context": "Checking the Mayor's official page at 5:30 AM during a storm while getting ready for school.",
+            "dialogue": "Student 1: Naka-uniform na ako, nag-announce na ba si Mayor kung walang pasok?\nStudent 2: Kakapost lang! Suspended na all levels!"
+        },
+        {
+            "id": 77,
+            "category": "School, Work & Errands",
+            "title": "Asking a Professor for a Deadline Extension",
+            "context": "Messaging your instructor politely when a power outage interrupts your online submission.",
+            "dialogue": "Student: Good evening po, Sir. Nag-brownout po sa area namin kaya na-delay yung upload ko sa Canvas.\nProfessor: Noted, just submit it as soon as your power is restored."
+        },
+        {
+            "id": 78,
+            "category": "School, Work & Errands",
+            "title": "Reminding a Groupmate in Thesis",
+            "context": "Following up with a group member in the Messenger GC to finish their assigned chapter.",
+            "dialogue": "Leader: Guys, bukas na yung defense draft. Yung part mo sa Chapter 2 na lang yung kulang.\nMember: Pasensya na, tinatapos ko na yung RRL ngayon, i-upload ko before 10 PM."
+        },
+        {
+            "id": 79,
+            "category": "School, Work & Errands",
+            "title": "Rush Printing (Pa-Print Po) Outside Campus",
+            "context": "Asking the computer shop attendant to print your paper right before class starts.",
+            "dialogue": "Student: Kuya, pa-print po, short bond paper, black and white lang. Rush po, malelate na ako!\nAttendant: Send mo na sa Messenger o email namin para ma-print agad."
+        },
+        {
+            "id": 80,
+            "category": "School, Work & Errands",
+            "title": "Asking a Seatmate for Yellow Pad Paper",
+            "context": "Whispering to a classmate during a surprise quiz to ask for a sheet of paper.",
+            "dialogue": "Student 1: Pst, pahingi namang one-fourth o kaya one-whole yellow pad.\nStudent 2: O, hati na tayo dito sa isang piraso."
+        },
+        {
+            "id": 81,
+            "category": "School, Work & Errands",
+            "title": "University Teacher's Prerogative (Prerog)",
+            "context": "Asking a professor on the first day of classes if they can accept one more student.",
+            "dialogue": "Student: Good morning po, Ma'am. Pwede pa po ba magpa-prerog sa class niyo?\nProfessor: Isulat mo lang yung student number mo sa class list sa harap."
+        },
+        {
+            "id": 82,
+            "category": "School, Work & Errands",
+            "title": "Signing of Semester Clearance",
+            "context": "Going to the library or office to get signatures for your exam permit.",
+            "dialogue": "Student: Ma'am, magpapa-sign lang po sana ng clearance para makuha ko na yung exam permit ko.\nStaff: Wala ka namang overdue books, pirmahan ko na."
+        },
+        {
+            "id": 83,
+            "category": "School, Work & Errands",
+            "title": "Ordering at the School Canteen During Recess",
+            "context": "Buying snacks quickly during a short 15-minute break.",
+            "dialogue": "Student: Ate, isang banana cue at isang calamansi juice nga po, nag-bell na kasi.\nVendor: Ito na, bente-singko lahat."
+        },
+        {
+            "id": 84,
+            "category": "School, Work & Errands",
+            "title": "Asking Parents for Permission (Paalam)",
+            "context": "Asking your parents if you can go to a classmate's house on Saturday for a school project.",
+            "dialogue": "Student: Ma, pwede po ba ako pumunta kina Bea sa Sabado? Magpa-practice lang po kami ng sayaw sa PE.\nParent: Sige, basta umuwi ka bago mag-alas sais ng gabi ha."
+        },
+        {
+            "id": 85,
+            "category": "School, Work & Errands",
+            "title": "Collecting Class Ambagan (Contribution)",
+            "context": "Collecting 50 pesos per student for a class event or teacher's gift.",
+            "dialogue": "Treasurer: Guys, yung 50 pesos na ambagan para sa cake ni Ma'am, pakibigay na bago mag-uwian.\nClassmate: Pwede bang GCash na lang? Wala akong barya eh."
+        },
+        {
+            "id": 86,
+            "category": "School, Work & Errands",
+            "title": "PRC Board Exam / CET Proctor Instructions",
+            "context": "Checking with the room proctor about required transparent envelopes and pencil rules.",
+            "dialogue": "Examinee: Sir, pwede po ba ipasok yung transparent plastic envelope at Mongol #2 pencil sa upuan?\nProctor: Opo, iwan niyo lang po yung mga bag at cellphone dito sa harap."
+        },
+        {
+            "id": 87,
+            "category": "School, Work & Errands",
+            "title": "Requesting TOR and Good Moral Certificate",
+            "context": "Asking the registrar how many working days it takes to release graduation credentials.",
+            "dialogue": "Graduate: Good morning po, ilang working days po bago ma-release yung Transcript of Records?\nRegistrar: Mga 7 to 10 working days po pagkatapos magbayad sa cashier."
+        },
+        {
+            "id": 88,
+            "category": "School, Work & Errands",
+            "title": "NBI Clearance 'With Hit' Status",
+            "context": "Checking with the NBI clerk when to return after getting a 'Hit' for a common surname.",
+            "dialogue": "Applicant: Ma'am, may 'Hit' daw po yung pangalan ko. Anong petsa po ako babalik?\nClerk: Balik po kayo pagkatapos ng 8 working days, dalhin niyo lang po itong claim stub."
+        },
+        {
+            "id": 89,
+            "category": "School, Work & Errands",
+            "title": "LTO Driver's License Renewal",
+            "context": "Asking the LTO window clerk about the medical clinic and plastic card availability.",
+            "dialogue": "Driver: Boss, saan po yung accredited medical clinic dito, at plastic card na po ba yung iri-release?\nClerk: Sa kabilang building po yung medical, at opo, may plastic card na tayo today."
+        },
+        {
+            "id": 90,
+            "category": "School, Work & Errands",
+            "title": "Updating Records at SSS, PhilHealth, or Pag-IBIG",
+            "context": "Verifying with the guard if your photocopied IDs and specimen signatures are complete.",
+            "dialogue": "Member: Kuya Guard, kumpleto na po ba itong photocopy ng dalawang valid ID na may tatlong pirma?\nGuard: Kumpleto na po, Ma'am. Kumuha na po kayo ng number sa Window 1."
+        },
+        {
+            "id": 91,
+            "category": "School, Work & Errands",
+            "title": "Getting a Barangay Clearance",
+            "context": "Requesting an official certificate at the barangay hall for job application.",
+            "dialogue": "Resident: Magandang umaga po, kukuha po sana ako ng Barangay Clearance para sa job application ko.\nSecretary: Pakipakita lang po ng valid ID o cedula para ma-type na natin."
+        },
+        {
+            "id": 92,
+            "category": "School, Work & Errands",
+            "title": "Filing a Sick Leave (SL) via Chat",
+            "context": "Notifying your supervisor early in the morning that you have a fever.",
+            "dialogue": "Employee: Good morning TL, magfa-file po sana ako ng Sick Leave today dahil may lagnat ako.\nSupervisor: Get well soon! Just send your teleconsult med cert once you're feeling better."
+        },
+        {
+            "id": 93,
+            "category": "School, Work & Errands",
+            "title": "BPO Graveyard Shift Coffee Break",
+            "context": "Ordering 2:00 AM iced coffee with teammates during your mid-shift break.",
+            "dialogue": "Agent 1: Tara sa baba, mag-iced coffee muna tayo bago bumalik sa queue.\nAgent 2: Game! Antok na antok na rin ako eh."
+        },
+        {
+            "id": 94,
+            "category": "School, Work & Errands",
+            "title": "Checking the ATM on Payday (15th/30th)",
+            "context": "Waiting in a long payday ATM line and hoping the machine still has cash.",
+            "dialogue": "Worker 1: Sana hindi pa offline o ubos yung cash sa ATM, ang haba na ng pila.\nWorker 2: Kakapag-reload lang daw ng armored van kanina, may laman pa yan!"
+        },
+        {
+            "id": 95,
+            "category": "School, Work & Errands",
+            "title": "Organizing an Office Potluck",
+            "context": "Coordinating in the team chat who is bringing pancit, pichi-pichi, and drinks.",
+            "dialogue": "Coworker 1: Guys, ako na bahala sa Amber's pancit malabon at pichi-pichi!\nCoworker 2: Ako na sasagot sa soft drinks at yelo!"
+        },
+        {
+            "id": 96,
+            "category": "School, Work & Errands",
+            "title": "Greeting Inaanak on Christmas Day",
+            "context": "Handing out crisp bills in red angpao envelopes to your godchildren.",
+            "dialogue": "Godparent: Merry Christmas! Mag-aral nang mabuti ha, ito yung aguinaldo mo kay Ninong.\nChild: Mano po, Ninong! Thank you po!"
+        },
+        {
+            "id": 97,
+            "category": "School, Work & Errands",
+            "title": "Requesting an HMO LOA at the Hospital",
+            "context": "Asking the hospital HMO concierge for a Letter of Authorization before a check-up.",
+            "dialogue": "Patient: Good morning po, magpapa-approve po sana ako ng LOA para sa consultation sa Internal Medicine.\nConcierge: Paki-abot na lang po ng HMO card at valid ID niyo, Ma'am."
+        },
+        {
+            "id": 98,
+            "category": "School, Work & Errands",
+            "title": "Buying Generic Medicine at Mercury Drug",
+            "context": "Asking the pharmacist if a more affordable generic equivalent is available.",
+            "dialogue": "Customer: Miss, meron po bang generic equivalent itong nireseta ng doktor?\nPharmacist: Opo Sir, meron po kaming RiteMED para dito."
+        },
+        {
+            "id": 99,
+            "category": "School, Work & Errands",
+            "title": "Making Sure a Barkada Outing Isn't 'Drawing'",
+            "context": "Collecting downpayments in the group chat for a Pansol or Elyu trip.",
+            "dialogue": "Organizer: Guys, mag-send na kayo ng 500 downpayment para hindi na naman ito maging drawing!\nFriend: Nag-send na ako sa GCash mo! Tuloy na tuloy na ito!"
+        },
+        {
+            "id": 100,
+            "category": "School, Work & Errands",
+            "title": "Simbang Gabi and Hot Bibingka / Puto Bumbong",
+            "context": "Ordering traditional Christmas delicacies outside the church after dawn Mass.",
+            "dialogue": "Buyer: Ate, dalawang puto bumbong at isang bibingka nga po, pa-dagdag po ng niyog at asukal.\nVendor: Sige po, mainit-init pa ito, bagong luto lang."
+        }
+    ]
+}

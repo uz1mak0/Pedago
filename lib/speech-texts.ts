@@ -3,6 +3,7 @@
 // NOT imported by the app UI, so it does not ship in the bundle.
 
 import { initialFlashcards, grammarExercises, conversationScenarios } from './tagalog-data';
+import pedagoData from './pedago_100_schema_matched.json';
 import { tutorialPhrases } from './tutorial-phrases';
 import { cleanSpeechText, speechKey, SpeechVariant } from './speech-key';
 
@@ -44,12 +45,27 @@ export function collectSpeechItems(): SpeechItem[] {
     topic.examples.forEach((ex, i) => add(ex.tagalog, `grammar:${topic.id}:example-${i}`));
   }
 
+  for (const topic of pedagoData.grammarExercises) {
+    topic.examples.forEach((ex, i) => add(ex.tagalog, `pedago-grammar:${topic.id}:example-${i}`));
+  }
+
   // ScenariosView plays node.tagalog for every line, including the learner's own
   // chosen replies (built from choice.textTagalog).
   for (const scenario of conversationScenarios) {
     for (const node of scenario.dialogue) {
       add(node.tagalog, `scenario:${scenario.id}:${node.id}`);
       node.choices?.forEach((c, i) => add(c.textTagalog, `scenario:${scenario.id}:${node.id}:choice-${i}`));
+    }
+  }
+
+  for (const scenario of pedagoData.scenarios) {
+    for (const node of scenario.dialogue) {
+      add(node.tagalog, `pedago-scenario:${scenario.id}:${node.id}`);
+      if ('choices' in node && Array.isArray(node.choices)) {
+        node.choices.forEach((c, i) =>
+          add(c.textTagalog, `pedago-scenario:${scenario.id}:${node.id}:choice-${i}`)
+        );
+      }
     }
   }
 
