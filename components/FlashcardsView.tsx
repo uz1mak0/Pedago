@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Volume2, RotateCcw, CheckCircle2, ChevronLeft, ChevronRight, Sparkles, Filter, BookmarkCheck, Gauge } from 'lucide-react';
 import { Flashcard } from '../lib/types';
-import { playTagalogSpeech } from '../lib/audio-voice';
+import { playTagalogSpeech, stopTagalogSpeech } from '../lib/audio-voice';
 
 interface FlashcardsViewProps {
   cards: Flashcard[];
@@ -27,32 +27,81 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp, 
 
   const currentCard = filteredCards[currentIndex] || cards[0];
 
+  // Stop any ongoing speech when component unmounts
+  useEffect(() => {
+    return () => {
+      stopTagalogSpeech();
+    };
+  }, []);
+
   const handleNext = () => {
+    stopTagalogSpeech();
+    setPlayingTarget(null);
     setIsFlipped(false);
     setCurrentIndex((prev) => (prev + 1) % filteredCards.length);
   };
 
   const handlePrev = () => {
+    stopTagalogSpeech();
+    setPlayingTarget(null);
     setIsFlipped(false);
     setCurrentIndex((prev) => (prev - 1 + filteredCards.length) % filteredCards.length);
   };
 
   const handlePlayWord = async (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    if (!currentCard || playingTarget !== null) return;
+    if (!currentCard) return;
+
+    // Toggle stop if already playing
+    if (playingTarget === 'word') {
+      stopTagalogSpeech();
+      setPlayingTarget(null);
+      return;
+    }
+
+    if (playingTarget !== null) {
+      stopTagalogSpeech();
+    }
 
     setPlayingTarget('word');
-    await playTagalogSpeech(currentCard.tagalog, { speed });
-    setPlayingTarget(null);
+    try {
+      await playTagalogSpeech(currentCard.tagalog, {
+        speed,
+        onEnd: () => setPlayingTarget(null),
+      });
+    } catch (err) {
+      console.warn('Flashcard word audio playback error:', err);
+    } finally {
+      setPlayingTarget(null);
+    }
   };
 
   const handlePlayExample = async (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    if (!currentCard || playingTarget !== null) return;
+    if (!currentCard) return;
+
+    // Toggle stop if already playing
+    if (playingTarget === 'example') {
+      stopTagalogSpeech();
+      setPlayingTarget(null);
+      return;
+    }
+
+    if (playingTarget !== null) {
+      stopTagalogSpeech();
+    }
 
     setPlayingTarget('example');
-    await playTagalogSpeech(currentCard.exampleSentenceTagalog, { speed });
-    setPlayingTarget(null);
+    try {
+      await playTagalogSpeech(currentCard.exampleSentenceTagalog, {
+        speed,
+        onEnd: () => setPlayingTarget(null),
+      });
+    } catch (err) {
+      console.warn('Flashcard example audio playback error:', err);
+    } finally {
+      setPlayingTarget(null);
+    }
   };
 
   const handleMarkMastered = (e: React.MouseEvent) => {
@@ -87,9 +136,6 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp, 
               </button>
             )}
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Vocabulary Flashcards</h1>
-            <span className="rounded-full bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400">
-              {filteredCards.length} Cards
-            </span>
           </div>
           <div className="flex flex-wrap items-center gap-2 mt-1">
             <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/10 border border-rose-500/25 px-2.5 py-0.5 text-[11px] font-semibold text-rose-300">
@@ -128,10 +174,12 @@ export function FlashcardsView({ cards, masteredIds, onToggleMastered, onAddXp, 
 
           {/* Difficulty Filter */}
           <div className="flex items-center gap-1 rounded-2xl bg-white/[0.04] p-1 border border-white/10">
-            {['All', 'Beginner', 'Intermediate'].map((diff) => (
+            {['All', 'Beginner', 'Intermediate', 'Advanced'].map((diff) => (
               <button
                 key={diff}
                 onClick={() => {
+                  stopTagalogSpeech();
+                  setPlayingTarget(null);
                   setFilterDifficulty(diff);
                   setCurrentIndex(0);
                   setIsFlipped(false);

@@ -85,17 +85,23 @@ class TagalogAudioEngine {
 
   private nativeVoice: NativeVoice | null | undefined; // undefined = not probed yet
 
-  private getAudioContext(): AudioContext {
+  private getAudioContext(): AudioContext | null {
     if (!this.audioCtx && typeof window !== 'undefined') {
-      const AudioContextClass =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      this.audioCtx = new AudioContextClass();
+      try {
+        const AudioContextClass =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (AudioContextClass) {
+          this.audioCtx = new AudioContextClass();
+        }
+      } catch {
+        return null;
+      }
     }
     if (this.audioCtx && this.audioCtx.state === 'suspended') {
-      this.audioCtx.resume();
+      this.audioCtx.resume().catch(() => {});
     }
-    return this.audioCtx!;
+    return this.audioCtx;
   }
 
   // ---------------------------------------------------------------------------
@@ -180,6 +186,7 @@ class TagalogAudioEngine {
 
     try {
       const ctx = this.getAudioContext();
+      if (!ctx) return;
       const startTime = ctx.currentTime + 0.05;
       const beatDuration = speed === 'slow' ? 0.35 : 0.24;
 
@@ -346,6 +353,11 @@ class TagalogAudioEngine {
       timer = setTimeout(() => finish('failed', true), START_TIMEOUT_MS);
 
       audio.play().catch((err) => {
+        if (err && (err.name === 'AbortError' || err.code === 20)) {
+          // Play was interrupted by pause() or a new request - not an audio failure
+          finish('interrupted', false);
+          return;
+        }
         console.warn('Audio play error:', err);
         finish('failed', true);
       });
@@ -465,7 +477,7 @@ class TagalogAudioEngine {
     slow: boolean,
     options: AudioPlayOptions
   ): Promise<PlayResult> {
-    if (!('speechSynthesis' in window)) return 'failed';
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return 'failed';
 
     const voice = await this.findWebVoice();
     if (this.session !== session) return 'interrupted';
@@ -476,9 +488,12 @@ class TagalogAudioEngine {
 
     return new Promise<PlayResult>((resolve) => {
       let done = false;
+      let watchdog: ReturnType<typeof setTimeout> | undefined;
+
       const finish = (result: PlayResult) => {
         if (done) return;
         done = true;
+        if (watchdog) clearTimeout(watchdog);
         if (this.session === session) {
           this.settle = null;
           this.speaking = false;
@@ -487,21 +502,39 @@ class TagalogAudioEngine {
       };
       this.settle = finish;
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = voice;
-      utterance.lang = voice.lang;
-      utterance.rate = slow ? 0.75 : 0.95;
-      utterance.pitch = 1.0;
+      try {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = voice;
+        utterance.lang = voice.lang;
+        utterance.rate = slow ? 0.75 : 0.95;
+        utterance.pitch = 1.0;
 
-      utterance.onstart = () => {
-        this.speaking = true;
-        options.onStart?.();
-      };
-      utterance.onend = () => finish(this.session === session ? 'ended' : 'interrupted');
-      utterance.onerror = () => finish(this.session === session ? 'failed' : 'interrupted');
+        watchdog = setTimeout(() => {
+          finish(this.session === session ? 'ended' : 'interrupted');
+        }, 12000);
 
-      this.deviceVoiceActive = true;
-      window.speechSynthesis.speak(utterance);
+        utterance.onstart = () => {
+          this.speaking = true;
+          options.onStart?.();
+        };
+        utterance.onend = () => finish(this.session === session ? 'ended' : 'interrupted');
+        utterance.onerror = (e) => {
+          if (e.error === 'interrupted' || e.error === 'canceled') {
+            finish('interrupted');
+          } else {
+            finish(this.session === session ? 'failed' : 'interrupted');
+          }
+        };
+
+        this.deviceVoiceActive = true;
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn('SpeechSynthesis error:', err);
+        finish('failed');
+      }
     });
   }
 }

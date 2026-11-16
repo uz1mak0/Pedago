@@ -166,6 +166,8 @@ const run = promisify(execFile);
 const EDGE_CANDIDATES: string[][] = [
   ['edge-tts'],
   ['python', '-m', 'edge_tts'],
+  ['C:\\Users\\iqosr\\AppData\\Local\\Programs\\Python\\Python310\\python.exe', '-m', 'edge_tts'],
+  ['py', '-3.10', '-m', 'edge_tts'],
   ['py', '-m', 'edge_tts'],
   ['python3', '-m', 'edge_tts'],
 ];

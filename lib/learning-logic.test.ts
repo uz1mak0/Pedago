@@ -28,8 +28,8 @@ test('Conversation scenarios has exactly 50 authentic Philippine scenarios', () 
   });
 });
 
-test('Flashcards set is populated with 25 authentic cards', () => {
-  assert.equal(initialFlashcards.length, 25);
+test('Flashcards set is populated with 100 authentic cards', () => {
+  assert.equal(initialFlashcards.length, 100);
   initialFlashcards.forEach((card) => {
     assert.ok(card.tagalog);
     assert.ok(card.english);

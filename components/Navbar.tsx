@@ -14,7 +14,7 @@ interface NavbarProps {
 
 const tabs = [
   { id: 'tutorial' as const, label: 'Tutorial', icon: Compass, badge: 'Start Here' },
-  { id: 'flashcards' as const, label: 'Flashcards', icon: Layers, badge: '25 Cards' },
+  { id: 'flashcards' as const, label: 'Flashcards', icon: Layers, badge: '100 Cards' },
   { id: 'grammar' as const, label: 'Grammar', icon: BookOpen, badge: '100 Topics' },
   { id: 'scenarios' as const, label: 'Scenarios', icon: MessageSquare, badge: '100 Scenarios' },
 ];

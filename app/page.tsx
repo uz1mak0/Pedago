@@ -186,7 +186,7 @@ export default function Home() {
             <strong>Pedago</strong> &bull; Authentic Tagalog Language Learning
           </p>
           <p className="text-slate-400">
-            Crafted with Filipino care for global learners &bull; 100 Grammar Lessons &bull; 100 Scenarios
+            Crafted with Filipino care for global learners &bull; 100 Flashcards &bull; 100 Grammar Lessons &bull; 100 Scenarios
           </p>
         </div>
       </footer>
